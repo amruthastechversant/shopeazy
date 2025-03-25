@@ -7,8 +7,8 @@
 
     <div class="container text-center mt-5 mb-5">
       <div class="row">
-        <div class="card mx-2" style="width: 18rem;">
-          <img src="../productImages/Apple iPhone 15.jpg" class="card-img-top" alt="...">
+        <div class="card mx-2" style="width: 18rem; cursor:pointer;">
+          <img src="../productImages/Apple iPhone 15.jpg" class="card-img-top" alt="..." onclick="window.location.href='#application.appBasePath#products/detail.cfm'">
             <div class="card-body">
               <h5 class="card-title">Apple iPhone 15 (128 GB) - Black</h5>
               <span aria-hidden="true">

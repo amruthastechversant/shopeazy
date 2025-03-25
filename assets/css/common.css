@@ -290,34 +290,197 @@ input.form-control{width: 500px;}
 	/* checkout css end */
 
 	/* confirmationpage css */
+
+	/* General styling for the order details container */
 	.order-details {
-		border: 1px solid #ccc;
+		background-color: #f9f9f9; /* Light background */
 		padding: 20px;
-		width: 300px;
-		border-radius: 8px;
-		background-color: #f9f9f9;
+		margin-bottom: 20px;
+		border-radius: 8px; /* Rounded corners */
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 		font-family: Arial, sans-serif;
 	}
+
+	/* Styling for the order heading */
 	.order-details h3 {
-		text-align: center;
-		margin-bottom: 15px;
+		font-size: 1.5rem;
+		color: #333;
+		margin-bottom: 10px;
 	}
+
+	/* Styling for the order ID paragraph */
 	.order-details p {
-		margin: 5px 0;
+		font-size: 1rem;
+		color: #555;
+		margin-bottom: 10px;
 	}
+
+	/* Styling for the order item container */
+	.order-item {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	/* Styling for the image container */
+	.order-item img {
+		max-width: 120px;
+		border-radius: 8px;
+		margin-right: 15px;
+	}
+
+	/* Styling for the product information */
+	.order-item h5 {
+		font-size: 1.2rem;
+		color: #333;
+		margin-bottom: 5px;
+	}
+
+	/* Price styling */
+	.order-item .a-price-symbol {
+		font-size: 1.2rem;
+		font-weight: bold;
+		color: #2a9d8f; /* Price color */
+	}
+
+	.order-item .a-price-whole {
+		font-size: 1.5rem;
+		font-weight: bold;
+		color: #2a9d8f; /* Price color */
+	}
+
+	/* Styling for the estimated delivery date */
+	.order-item p {
+		font-size: 1rem;
+		color: #666;
+		margin-top: 10px;
+	}
+
+	/* Styling for the track button */
 	.track-button {
-		display: block;
-		width: 100%;
-		padding: 10px;
-		margin-top: 20px;
-		background-color: #4CAF50;
+		background-color: #2a9d8f; /* Greenish color */
 		color: white;
+		font-size: 1rem;
+		padding: 10px 15px;
 		border: none;
 		border-radius: 5px;
-		font-size: 16px;
 		cursor: pointer;
-		text-align: center;
+		transition: background-color 0.3s ease;
 	}
+
+	/* Button hover effect */
 	.track-button:hover {
-		background-color: #45a049;
+		background-color: #1e7a61; /* Darker green on hover */
 	}
+
+	/* confirmation page css end */
+
+
+	/* product detail page css */
+	
+.product-detail {
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding: 20px;
+}
+
+.product-image img {
+    max-width: 80%;
+    border-radius: 8px;
+}
+
+.product-info {
+    margin-left: 20px;
+    flex: 1;
+}
+
+.product-name {
+    font-size: 2rem;
+    margin: 0;
+    color: #333;
+}
+
+.product-description {
+    font-size: 1rem;
+    color: #777;
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+.detail-item-head{color: rgb(67, 67, 221);}
+
+.product-rating {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #f39c12;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: #ddd;
+}
+
+.star.rated {
+    color: #f39c12;
+}
+
+.rating-text {
+    font-size: 1rem;
+    color: #555;
+    margin-left: 10px;
+}
+
+
+/* Style for the color swatches */
+.color-swatches {
+    display: flex;
+    gap: 10px;
+    margin: 10px;
+}
+
+/* Style for individual color circles */
+.color-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    transition: transform 0.3s ease;
+}
+
+.color-circle:hover {
+    transform: scale(1.1);
+}
+
+/* Optional: Add a selected class if you'd like to highlight the chosen color */
+.color-circle.selected {
+    border: 2px solid #000;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    color: #e67e22;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.add-to-cart {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.add-to-cart:hover {
+    background-color: #d56b1b;
+}
+	/* end */
