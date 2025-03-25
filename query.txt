@@ -1,0 +1,101 @@
+-- Create Users Table
+CREATE TABLE tbl_Users (
+    int_user_id INT AUTO_INCREMENT PRIMARY KEY,
+    str_first_name VARCHAR(50) NOT NULL,
+    str_last_name VARCHAR(50) NOT NULL,
+    str_email VARCHAR(100) UNIQUE NOT NULL,
+    str_password VARCHAR(255) NOT NULL, -- Hashed password
+    int_phone_number VARCHAR(15),
+    str_address TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Create Categories Table
+CREATE TABLE tbl_Categories (
+    int_category_id INT AUTO_INCREMENT PRIMARY KEY,
+    str_category_name VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Create Products Table
+CREATE TABLE tbl_Products (
+    int_product_id INT AUTO_INCREMENT PRIMARY KEY,
+    str_name VARCHAR(255) NOT NULL,
+    str_description TEXT,
+    int_price DECIMAL(10,2) NOT NULL,
+    int_stock_quantity INT NOT NULL,
+    int_category_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (int_category_id) REFERENCES tbl_Categories(int_category_id) ON DELETE SET NULL
+);
+
+-- Create Shopping Cart Table
+CREATE TABLE tbl_Cart (
+    int_cart_id INT AUTO_INCREMENT PRIMARY KEY,
+    int_user_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (int_user_id) REFERENCES tbl_Users(int_user_id) ON DELETE CASCADE
+);
+
+-- Create Cart Items Table
+CREATE TABLE tbl_Cart_Items (
+    int_cart_item_id INT AUTO_INCREMENT PRIMARY KEY,
+    int_cart_id INT,
+    int_product_id INT,
+    int_quantity INT NOT NULL,
+    price_at_time_of_addition DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (int_cart_id) REFERENCES tbl__Cart(cart_id) ON DELETE CASCADE,
+    FOREIGN KEY (int_product_id) REFERENCES tbl_Products(int_product_id) ON DELETE CASCADE
+);
+
+-- Create Orders Table
+CREATE TABLE tbl_Orders (
+    int_order_id INT AUTO_INCREMENT PRIMARY KEY,
+    int_user_id INT,
+    total_amount DECIMAL(10,2) NOT NULL,
+    payment_method ENUM('Credit Card', 'PayPal', 'Bank Transfer'),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (int_user_id) REFERENCES tbl_Users(int_user_id) ON DELETE CASCADE
+);
+
+-- Create Order Items Table
+CREATE TABLE tbl_Order_Items (
+    int_order_item_id INT AUTO_INCREMENT PRIMARY KEY,
+    int_order_id INT,
+    int_product_id INT,
+    int_quantity INT NOT NULL,
+    int_price_at_time_of_order DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (int_order_id) REFERENCES tbl_Orders(int_order_id) ON DELETE CASCADE,
+    FOREIGN KEY (int_product_id) REFERENCES tbl_Products(int_product_id) ON DELETE CASCADE
+);
+
+-- Create Payments Table
+CREATE TABLE tbl_Payments (
+    int_payment_id INT AUTO_INCREMENT PRIMARY KEY,
+    int_order_id INT,
+    int_user_id INT,
+    int_amount DECIMAL(10,2) NOT NULL,
+    str_payment_method ENUM('Credit Card', 'PayPal', 'Bank Transfer'),
+    int_transaction_id VARCHAR(255) UNIQUE NOT NULL,
+    int_payment_status ENUM('Pending', 'Completed', 'Failed') DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (int_order_id) REFERENCES tbl_Orders(int_order_id) ON DELETE CASCADE,
+    FOREIGN KEY (int_user_id) REFERENCES tbl_Users(int_user_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE order_status (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    status ENUM('pending', 'shipped', 'delivered', 'canceled') NOT NULL
+);
+
+insert into tbl_order_status(status)values('confirmed'),('shipped'),('out for delivery'),('delivered'),('cancelled');

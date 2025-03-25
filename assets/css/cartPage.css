@@ -1,0 +1,57 @@
+.card-body {
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between;
+    padding-left: 1rem; /* Adjust the left margin/padding */
+  }
+  
+  .card-title {
+    margin-bottom: 0.5rem; /* Adds space between title and price */
+  }
+  
+  .price {
+    font-size: 1.2rem; /* You can adjust the size of the price */
+    font-weight: bold; /* Make the price stand out */
+  }
+  
+  .cart-container {
+    display: flex;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .cart-icon {
+    font-size: 30px;
+    margin-right: 10px;
+  }
+  
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+  }
+  
+  button {
+    font-size: 18px;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    background-color: #f5f5f5;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #ddd;
+  }
+  
+  .quantity {
+    font-size: 20px;
+    margin: 0 10px;
+  }
+  
+  .checkbox-container {
+    display: flex;
+    justify-content: flex-start; /* Align checkbox to the left */
+    margin-bottom: 10px; /* Optional: Add spacing if needed */
+  }
+  
