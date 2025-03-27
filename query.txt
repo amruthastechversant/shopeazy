@@ -11,6 +11,9 @@ CREATE TABLE tbl_Users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+ALTER TABLE tbl_Users
+RENAME COLUMN int_phone_number TO str_phone_number;
+
 -- Create Categories Table
 CREATE TABLE tbl_Categories (
     int_category_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -99,3 +102,5 @@ CREATE TABLE order_status (
 );
 
 insert into tbl_order_status(status)values('confirmed'),('shipped'),('out for delivery'),('delivered'),('cancelled');
+
+const first = () => { let count = 0; const second = () => { count = count + 1; return count }; return second   }

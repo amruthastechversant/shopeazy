@@ -150,17 +150,6 @@ input.form-control{width: 500px;}
 	color: #ff5722;  /* Set color for the price */
   }
 
-  .modal {
-  
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
 
 .modal-content {
     background-color: #fff;
@@ -192,9 +181,10 @@ input.form-control{width: 500px;}
 	padding: 20px;
 	border: 1px solid #888;
 	width: 600px !important;
+	height: 350px;
 	border-radius: 8px;
   }
-  
+  .bottomlink{margin-top: 22px;}
   .close {
 	color: #aaa;
 	float: right;
@@ -484,3 +474,9 @@ input.form-control{width: 500px;}
     background-color: #d56b1b;
 }
 	/* end */
+
+/* register form css */
+.registerbtn{
+	border-radius: 15px;
+}
+/* end */
