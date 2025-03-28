@@ -38,5 +38,26 @@
         <button type="submit">Login</button>
       </form>
     </div>
-  </div>
+</div>
+<!--- sellerLogin --->
+<div id="sellerloginModal" class="modal">
+    <div class="custom-modal">
+      <span class="close" id="sellerCloseBtn">&times;</span>
+      <h2>SellerLogin</h2>
+      <form id="sellerLoginForm">
+        <div class="input-container">
+          <label for="email">Email:</label>
+          <input type="email" id="sellerEmail" name="sellerEmail" required>
+        </div>
+        <div class="input-container">
+          <label for="password">Password:</label>
+          <input type="password" id="sellerPassword" name="sellerPassword" required>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+       <p class="bottomlink text-center"><a href="#application.appBasePath#users/login/seller/register.cfm" id="createaccount">New to Shopeazy? Create seller Account</a></p>
+    </div>
+</div>
+
+
 </cfoutput>

@@ -476,7 +476,8 @@ input.form-control{width: 500px;}
 	/* end */
 
 /* register form css */
-.registerbtn{
+.registerbtn ,.sellerRegisterbtn{
 	border-radius: 15px;
+	color: #f0eeee;
 }
 /* end */

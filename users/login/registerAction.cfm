@@ -8,6 +8,7 @@
         variables.str_password="";
         variables.Confirm_Password="";
         variables.error_msg="";
+        variables.success_msg="";
 
     }
 
@@ -55,27 +56,24 @@
 
    
  
-    function register(firstname, lastname, email, address, phonenumber, newPassword, confirmpassword) access="public" returnType="any" {
-            
-            if(newPassword !==confirmpassword){
-                return "password mistaches";
-            }
-        
-    // checkUserSql = "SELECT COUNT(int_user_id) AS userCount 
-    //                 FROM tbl_users 
-    //                 WHERE str_email = :email AND str_phone_number = :phonenumber";
+function register(firstname, lastname, email, address, phonenumber, newPassword, confirmpassword) access="public" returnType="any" {
+                 
+    checkUserSql = "SELECT COUNT(int_user_id) AS userCount 
+                    FROM tbl_users 
+                    WHERE str_email = :email OR str_phone_number = :phonenumber";
 
-    // checkParams = {
-    //     email = email,
-    //     phonenumber = phonenumber
-    // };
+    checkParams = {
+        email = email,
+        phonenumber = phonenumber
+    };
 
-    // checkResult = queryExecute(checkUserSql, checkParams, {datasource= application.datasource});
+    checkResult = queryExecute(checkUserSql, checkParams, {datasource= application.datasource});
+    // writeDump(checkResult.userCount);abort;
 
-    // if (checkResult.userCount > 0) {
-    //     return "A user with this email and phone number already exists.";
-    // }
-
+    if (checkResult.userCount > 0) {
+        variables.error_msg = "A user with this email or phone number already exists.";
+        return variables.error_msg;
+    }
     // Proceed with the insertion if no duplicates found
     sql = "INSERT INTO tbl_users(str_first_name, str_last_name, str_email, str_address, str_phone_number, str_password, int_role_id)
            VALUES (:value1, :value2, :value3, :value4, :value5, :value6, :value7)";
@@ -94,8 +92,9 @@
    
     // Execute the query to insert the new user
     queryExecute(sql, params, {datasource= application.datasource});
-    
-    return "User registered successfully!";
+     variables.success_msg =  "User registered successfully!";
+    return variables.success_msg;
+
 }
      
     setDefaultValues();

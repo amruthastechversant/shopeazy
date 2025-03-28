@@ -26,7 +26,7 @@
                                 <a href="##" id="adminloginbtn">Admin</a>
                             </div>
                         </div>
-                        <a href="">Seller Account</a>
+                        <a href="##" id="sellerloginbtn">Seller Account</a>
                         <a href="">Sign Out</a>
                     </div>
                 </div>

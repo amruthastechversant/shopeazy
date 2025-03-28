@@ -14,6 +14,22 @@ CREATE TABLE tbl_Users (
 ALTER TABLE tbl_Users
 RENAME COLUMN int_phone_number TO str_phone_number;
 
+ALTER TABLE tbl_Users
+MODIFY str_last_name VARCHAR(50) DEFAULT NULL;
+
+CREATE TABLE tbl_seller_info (
+    int_seller_id INT AUTO_INCREMENT PRIMARY KEY,
+    int_user_id int,
+    int_gst_no int,
+    int_lisence_no int,
+    int_product_category int,
+    FOREIGN KEY (int_user_id) REFERENCES tbl_Users(int_user_id) ON DELETE CASCADE,
+    FOREIGN KEY (int_product_category) REFERENCES tbl_categories(int_category_id) ON DELETE CASCADE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+   
+
 -- Create Categories Table
 CREATE TABLE tbl_Categories (
     int_category_id INT AUTO_INCREMENT PRIMARY KEY,
