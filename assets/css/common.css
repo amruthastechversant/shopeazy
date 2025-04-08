@@ -175,6 +175,7 @@ input.form-control{width: 500px;}
 	background-color: rgba(0, 0, 0, 0.4); 
   }
   
+  .error-message{color:red;}
   .custom-modal {
 	background-color: #fff;
 	margin: 15% auto;
@@ -481,3 +482,5 @@ input.form-control{width: 500px;}
 	color: #f0eeee;
 }
 /* end */
+
+

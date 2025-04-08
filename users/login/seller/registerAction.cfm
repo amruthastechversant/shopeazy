@@ -23,6 +23,7 @@ function getProductCategory() {
         variables.success_msg="";
         variables.productcategory= "";
         variables.categories=[];
+        variables.category_id="";
 
     }
 
@@ -37,15 +38,16 @@ function getProductCategory() {
             variables.seller_password=form.newSellerPassword;
             variables.seller_Confirm_Password=form.sellerconfirmpassword;
            if( structKeyExists(form, "productcategory") ){
-                variables.productcategory = form.productcategory;
+                variables.category_id = form.productcategory;
             }
         }
     }
 
-    function validateFormValues(string companyName,string CompanyEmail,string CompanyAddress,string gstNo,string newSellerPassword,string sellerconfirmpassword,string productcategory) access="public" returnType="string"{
+    function validateFormValues(string companyName,string CompanyEmail,string CompanyAddress,string gstNo,string newSellerPassword,string sellerconfirmpassword,string productcategory) access="public" returnType="any"{
         if (len(companyName) EQ 0){
             variables.error_msg &="Enter companyName";
         }
+
           if (len(productcategory) EQ 0){
             variables.error_msg &="Enter product category";
         }
@@ -80,7 +82,7 @@ function getProductCategory() {
    
  
 function register(companyName, CompanyEmail, CompanyAddress, Contactno,gstNo,lisenceNo, newSellerPassword, sellerconfirmpassword,productcategory) access="public" returnType="any" {
-               
+
     checkUserSql = "SELECT COUNT(int_user_id) AS userCount 
                     FROM tbl_users 
                     WHERE str_email = :CompanyEmail OR str_phone_number = :Contactno";
@@ -121,15 +123,15 @@ function register(companyName, CompanyEmail, CompanyAddress, Contactno,gstNo,lis
 
     // Retrieve the user_id
     user_id = result.user_id;
-    sql2 = "INSERT INTO tbl_seller_info(int_user_id, int_gst_no,int_lisence_no,int_product_category)
-            VALUES (:value1, :value2, :value3, :value4)";
-
+    sql2 = "INSERT INTO tbl_seller_info(int_user_id, int_gst_no,int_lisence_no,int_product_category,str_seller_status)
+            VALUES (:value1, :value2, :value3, :value4, :value5)";
     // Define the parameters for the insert query
     params2 = {
         value1 = user_id,
         value2 = gstNo,
         value3 = lisenceNo,
-        value4 = 1
+        value4 = productcategory,
+        value5 = "pending"
     };
 
    
@@ -137,7 +139,7 @@ function register(companyName, CompanyEmail, CompanyAddress, Contactno,gstNo,lis
     queryExecute(sql2, params2, {datasource= application.datasource});
 
 
-     variables.success_msg =  "User registered successfully!";
+     variables.success_msg =  "your account is in pending approval!";
     return variables.success_msg;
 
 }
@@ -155,7 +157,8 @@ function register(companyName, CompanyEmail, CompanyAddress, Contactno,gstNo,lis
             lisenceNo=variables.str_license_number,
             newSellerPassword=variables.seller_password,
             sellerconfirmpassword= variables.seller_Confirm_Password,
-            productcategory= variables.productcategory
+            productcategory = variables.category_id
+          
             
         );
         if( len(variables.error_msg EQ 0)){
@@ -168,7 +171,7 @@ function register(companyName, CompanyEmail, CompanyAddress, Contactno,gstNo,lis
             lisenceNo=variables.str_license_number,
             newSellerPassword=variables.seller_password,
             sellerconfirmpassword= variables.seller_Confirm_Password,
-            productcategory= variables.productcategory
+            productcategory = variables.category_id
             )
         }
     }

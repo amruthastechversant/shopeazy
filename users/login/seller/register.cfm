@@ -14,6 +14,9 @@
                <div class="error-msg text-danger">   
                     #error_msg# 
                 </div>
+                <div class="error-msg text-success">   
+                    #variables.success_msg# 
+                </div>
                 <form id="sellerRegistrationForm" action="" method="POST" >
                     <div class="form-group">
                         <label for="firstname">Company Name</label>

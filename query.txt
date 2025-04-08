@@ -28,7 +28,10 @@ CREATE TABLE tbl_seller_info (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-   
+
+ALTER TABLE tbl_seller_info add column str_seller_status;
+ALTER TABLE tbl_seller_info 
+MODIFY COLUMN str_seller_status VARCHAR(10); 
 
 -- Create Categories Table
 CREATE TABLE tbl_Categories (
