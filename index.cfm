@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <cfoutput>
@@ -7,6 +8,10 @@
 <!--- header div--->
    <cfinclude  template="layouts/navbar.cfm">
 <!---category div --->
+<cfif structKeyExists(session, "email") and session.email NEQ "">
+    <p>welcome #session.email#</p>
+   
+</cfif>
     <div class="category d-flex p-5 bd-highlight justify-content-center">
         <div class="dropdown category electronics">
              <div class=" dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">

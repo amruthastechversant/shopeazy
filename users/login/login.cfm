@@ -6,14 +6,17 @@
     <div class="custom-modal">
       <span class="close" id="userCloseBtn">&times;</span>
       <h2>UserLogin</h2>
+      <div id="errormsg" class="error-message" style="display: none;">
+            <p id="errortext"></p>
+      </div>
       <form id="loginForm" method="POST">
         <div class="input-container">
           <label for="userEmail">Email:</label>
-          <input type="email" id="userEmail" name="userEmail" required>
+          <input type="email" id="userEmail" name="userEmail" >
         </div>
         <div class="input-container">
           <label for="userPassword">Password:</label>
-          <input type="password" id="userPassword" name="userPassword" required>
+          <input type="password" id="userPassword" name="userPassword" >
         </div>
         <button type="submit" name="userlogin">Login</button>
       </form>
@@ -25,11 +28,11 @@
     <div class="custom-modal">
       <span class="close" id="adminCloseBtn">&times;</span>
       <h2>AdminLogin</h2>
-        <cfif structKeyExists(session, "error_msg") and session.error_msg neq "">
+<!---         <cfif structKeyExists(session, "error_msg") and session.error_msg neq ""> 
           <div id="invalidMessage" class="error-message">
             <p id="invalidText"><cfoutput>#session.error_msg#</cfoutput></p>
           </div>
-        </cfif>
+        </cfif>--->
        <div id="errorMessage" class="error-message" style="display: none;">
             <p id="errorText"></p>
         </div>

@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <a href="##" id="sellerloginbtn">Seller Account</a>
-                        <a href="">Sign Out</a>
+                        <a href="#application.appBasePath#logout.cfm" onclick= "return confirm('are you sure to logout?')">Sign Out</a>
                     </div>
                 </div>
             </div>

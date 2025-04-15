@@ -12,33 +12,48 @@ function changeQuantity(amount){
 
 let totalPrice = 0;
 
-function changeQuantity(increment, price,event) {
+function changeQuantity(increment, product_id,event) {
     const quantitySpan = event.target.parentElement.querySelector('.quantity');
     let quantity = parseInt(quantitySpan.textContent);
+    let total_price = document.getElementById('price_'+product_id).textContent;
+    let price=total_price/quantity;
     quantity += increment;
-    if (quantity < 0) quantity = 0;
-
+    if (quantity < 0){
+        quantity = 0;
+        event.target.parentElement.querySelector('.decrement').disabled=true;
+    }
+    if (quantity > 0) {
+        event.target.parentElement.querySelector('.decrement').disabled = false;  // Enable the decrement button
+    }
+    total_price = price * quantity;
+    total_price = total_price.toFixed(2);
     quantitySpan.textContent = quantity;
-
+    document.getElementById('price_'+product_id).textContent = total_price;
     // Update total price
-    updateTotalPrice();
+    updateCart(product_id, total_price, quantity);
 }
 
-function updateTotalPrice() {
-    totalPrice = 0;
-
-    // Add up the total price based on quantities and prices
-    const quantities = document.querySelectorAll('.quantity');
-    const prices = document.querySelectorAll('.a-price-whole');
-    
-    for (let i = 0; i < quantities.length; i++) {
-        const quantity = parseInt(quantities[i].textContent);
-        const price = parseInt(prices[i].textContent.replace(',', '')); // remove commas if present
-        totalPrice += quantity * price;
-    }
-
-    // Update the total price display
-    document.getElementById('totalPrice').textContent = totalPrice.toLocaleString();
+function updateCart(product_id, total_price, quantity) {
+    $.ajax({
+        url: '/myprojects/shopeazy/users/cart/cartPageAction.cfm?updateCart=true',
+        type: 'POST',
+        data: {
+            product_id: product_id,
+            total_price: total_price,
+            quantity: quantity 
+        },
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 'success') {
+                window.location.href = response.redirect_url;
+            } else {
+                $('#errorMessage').text(response.message).show();
+            }
+        },
+        error: function() {
+            $('#errorMessage').text('An error occurred. Please try again.').show();
+        }
+    });
 }
 
 

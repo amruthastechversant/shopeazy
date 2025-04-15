@@ -61,41 +61,100 @@ function showError(message){
     errormessagecontainer.style.display="block";
 
 }
-document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
 
+
+function showErrorUser(message){
+    var errormessagecontainer=document.getElementById('errormsg');
+    var errortext=document.getElementById('errortext');
+
+    errortext.textContent=message;
+    errormessagecontainer.style.display="block";
+
+}
+document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
     var email = document.getElementById('adminEmail').value;
     var password = document.getElementById('adminPassword').value;
 
     if (!email || !password) {
-        showError("Please enter Email & password");
-        e.preventDefault();
+        showError("Please enter Email & password for admin");
     }
+    
+    var email=$('#adminEmail').val();
+    var password=$('#adminPassword').val();
+
+    $.ajax({
+        url: '/myprojects/shopeazy/users/login/loginAction.cfm?login=true',
+        type: 'POST',
+        data: {
+            email: email,
+            password: password,
+            login: true 
+        },
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 'success') {
+                window.location.href = response.redirect_url;
+            } else {
+                $('#errorMessage').text(response.message).show();
+            }
+        },
+        error: function() {
+            $('#errorMessage').text('An error occurred. Please try again.').show();
+        }
+    });
+
+   
 });
 
-    // fetch('#application.appBasePath#users/login/loginAction.cfm', {  // Adjust the URL to your backend login endpoint
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({ email: email, password: adminPassword })
-    // })
-    // .then(response => {
-    //     if (!response.ok) {
-    //         throw new Error('Login failed');
-    //     }
-    //     return response.json();
-    // })
-    // .then(data => {
-    //     // If the login is successful, redirect to the admin dashboard
-    //     if (data.success) {
-    //         window.location.href = '#application.appBasePath#admin/adminDashboard.cfm';  // Redirect to the admin dashboard page
-    //     } else {
-    //         showError(data.message || "invalid email or password");
-    //     }
-    // })
-    // .catch(error => {
-    //     // Handle any errors (e.g., network issues or server errors)
-    //     showError(error.message || "An error occurred");
-    // });
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var useremail = document.getElementById('userEmail').value;
+    var userpassword = document.getElementById('userPassword').value;
 
+    if (!useremail || !userpassword) {
+        showErrorUser("Please enter Email & password for user");
+    }
+
+    var useremail=$('#userEmail').val();
+    var userpassword=$('#userPassword').val();
+
+    $.ajax({
+        url: '/myprojects/shopeazy/users/login/loginAction.cfm?userlogin=true',
+        type: 'POST',
+        data: {
+            email: useremail,
+            password: userpassword,
+            login: true 
+        },
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 'success') {
+                window.location.href = response.redirect_url;
+            } else {
+                $('#errormsg').text(response.message).show();
+            }
+        },
+        error: function() {
+            $('#errormsg').text('An error occurred. Please try again.').show();
+        }
+    });
+});
+
+function deleteCartItem(product_id) {
+    if (!confirm("Are you sure you want to delete this item?")) return;
+
+    fetch('cartPageAction.cfm?deleteItemId=' + product_id)
+        .then(response => response.text())
+        .then(data => {
+            if(data.success){ 
+             document.getElementById("deletemessage").innerHTML="product removed";
+      
+            }
+        })
+        .catch(error => {
+            console.error("Delete failed:", error);
+            alert("Failed to delete item.");
+        });
+}
 
