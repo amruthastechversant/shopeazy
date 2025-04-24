@@ -26,6 +26,7 @@
         
         <cfif qryUser.recordCount>
             <cfset session.adminid = qryUser.int_user_id>
+            <cfset session.isLoggedIn = true>
             <cfset session.role = qryUser.str_user_role>
             <cfset session.email = qryUser.str_email>
             <cfset var response = {
@@ -68,6 +69,7 @@
         
         <cfif qryUser.recordCount>
             <cfset session.userid = qryUser.int_user_id>
+            <cfset session.isLoggedIn=true>
             <cfset session.role = qryUser.str_user_role>
             <cfset session.email = qryUser.str_email>
             <cfset var response = {

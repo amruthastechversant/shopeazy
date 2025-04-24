@@ -1,19 +1,20 @@
 <cfscript>
-    if (structKeyExists(session, "userId") and len(session.userId) > 0) {
-        variables.userId = session.userId;
+    if (structKeyExists(session, "userid") and len(session.userid) > 0) {
+        variables.userId = session.userid;
     }
+    
     variables.qryProducts=getAllProducts();
     session.itemAdded = false;
     // writeDump(getProductId());abort;
     if (structKeyExists(form, "addToCart_DB")){
-        userId=session.userId;
+        userId=session.userid;
         cartId=0;
         variables.qryGetCartDetails = getCartDetails();
-       
+    //    writeDump(variables.qryGetCartDetails );abort;
         if(val(variables.qryGetCartDetails) EQ 0){
             cartId = addProductToCart();
         } else {
-            cartId=variables.qryGetCartDetails.int_cart_id;
+            cartId=variables.qryGetCartDetails;
         }  
 
         addProductItemsToCart();  
@@ -43,6 +44,7 @@
             quantity=1
         };
         arrayAppend(session.cart,variables.product);
+
        }
         session.itemAdded = true;
      location(url="#application.appBasePath#users/cart/cartPage.cfm?status=added", addtoken=false);

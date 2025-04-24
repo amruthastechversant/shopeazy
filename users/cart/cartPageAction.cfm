@@ -41,10 +41,12 @@
     // Cart using session Start
 
     // Get Cart Items
-    if(structKeyExists(session, "cart")){
+    if(structKeyExists(session, "cart") && arrayLen(session.cart) > 0){
         cartItems = session.cart;
     }
-
+   else{
+        cartItems=[];
+     }
     // Delete Cart Item
      if (structKeyExists(url,"deleteItemId") ){
         deleteItemId=url.deleteItemId;

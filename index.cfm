@@ -1,4 +1,11 @@
 
+<cfif structKeyExists(URL, "showLogin") AND URL.showLogin EQ "1">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("userloginModal").style.display = "block";
+        });
+    </script>
+</cfif>
 
 <!DOCTYPE html>
 <html lang="en">

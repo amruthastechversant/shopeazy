@@ -10,6 +10,8 @@ var adminloginBtn=document.getElementById('adminloginbtn');
 var sellerloginBtn=document.getElementById('sellerloginbtn')
 var userCloseBtn = document.getElementById('userCloseBtn');
 var adminCloseBtn = document.getElementById('adminCloseBtn');
+var showadminloginModal=false;
+var showuserloginModal =false;  
 
 
 // Open modal when user clicks on the "User" link
@@ -49,9 +51,17 @@ window.onclick = function(event) {
         sellermodalElement.style.display="none";
     }
 
-
 }
 
+
+
+    window.addEventListener("DOMContentLoaded", function() {
+        if (showuserloginModal) {
+            modalElement.style.display = "block";  // Show the user login modal
+        } else if (showadminloginModal) {
+            adminmodalElement.style.display = "block";  // Show the admin login modal
+        }
+    });
 
 function showError(message){
     var errormessagecontainer=document.getElementById('errorMessage');

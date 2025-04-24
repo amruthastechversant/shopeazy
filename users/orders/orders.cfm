@@ -1,7 +1,13 @@
+<cfif NOT structKeyExists(session, "isLoggedIn") OR NOT session.isLoggedIn>
+    <cflocation url="#application.appBasePath#index.cfm?showLogin=1" addtoken="no">
+</cfif>
+<cfinclude  template="ordersActionPage.cfm">
+<!--- <cfdump  var="#session.cart#"> --->
 <!DOCTYPE html>
 <html lang="en">
 <cfoutput>
 <cfinclude  template="../../layouts/header.cfm">
+
 <body>
 <!--- header div--->
     <cfinclude  template="../../layouts/navbar.cfm">
@@ -12,8 +18,8 @@
             <div class="col-md-4">
                 <h3>Orders</h3>
                 <div class="order-details">
-                <h4><strong>Order ID:</strong> ##12345678</h4>
-
+                <h4><strong>Order ID:</strong></h4>
+                    <cfloop query="#finalorders#">
                     <div class="order-item">
 
                         <div class="">
@@ -141,6 +147,7 @@
                         </div>
                         <button class="track-button" onclick="alert('Tracking your order!')">Track Order</button>
                     </div>
+                    </cfloop>
                 </div>
             </div>
         </div>

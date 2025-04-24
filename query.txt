@@ -87,6 +87,11 @@ CREATE TABLE tbl_Orders (
     FOREIGN KEY (int_user_id) REFERENCES tbl_Users(int_user_id) ON DELETE CASCADE
 );
 
+alter table tbl_orders add column address varchar(30)
+ALTER TABLE tbl_orders
+MODIFY created_at TIMESTAMP AFTER address,
+MODIFY updated_at TIMESTAMP AFTER created_at;
+
 -- Create Order Items Table
 CREATE TABLE tbl_Order_Items (
     int_order_item_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -123,3 +128,7 @@ CREATE TABLE order_status (
 insert into tbl_order_status(status)values('confirmed'),('shipped'),('out for delivery'),('delivered'),('cancelled');
 
 const first = () => { let count = 0; const second = () => { count = count + 1; return count }; return second   }
+
+//join for getting products based on id
+select  from tbl_products as p Join tbl_order_items as i
+               on p.int_product_id=i.int_product_id;

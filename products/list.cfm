@@ -1,5 +1,5 @@
-<cfinclude  template="listAction.cfm">
 
+<cfinclude  template="listAction.cfm">
 <!DOCTYPE html>
 <html lang="en">
 <cfinclude  template="../layouts/header.cfm">

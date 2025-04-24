@@ -5,10 +5,10 @@ $(document).ready(function() {
         let isValid= true;
         var firstname = $('#firstname').val();
         var lastname = $('#lastname').val();
-        var CompanyEmail = $('#CompanyEmail').val();
-        var CompanyAddress = $('#CompanyAddress').val();
-        var gstNo = $('#gstNo').val();
-        var newSellerPassword = $('#newSellerPassword').val();
+        var CompanyEmail = $('#email').val();
+        var CompanyAddress = $('#address').val();
+        var phonenumber = $('#phonenumber').val();
+        var newPassword = $('#newPassword').val();
         var confirmpassword = $('#confirmpassword').val();
         $('.error-msg').text('');
 
@@ -30,7 +30,7 @@ $(document).ready(function() {
             $('#addressError').text(' CompanyAddress is required');
             isValid=false;
         }
-        if(gstNo==""){
+        if(phonenumber==""){
             $('#phonenumberError').text('Phone number is required');
             isValid=false;
 

@@ -1,5 +1,6 @@
 <cfinclude  template="loginAction.cfm">
 <cfoutput>
+
 <!--- USERLOGIN --->
 <div id="userloginModal" class="modal">
 <!---     <div class="modal-content custom-modal"> --->
@@ -22,7 +23,7 @@
       </form>
         <p class="bottomlink text-center"><a href="#application.appBasePath#users/login/register.cfm" id="createaccount">New to Shopeazy? Create Account</a></p>
     </div>
-  </div>
+</div>
 <!--- ADMINLOGIN --->
 <div id="adminloginModal" class="modal">
     <div class="custom-modal">
