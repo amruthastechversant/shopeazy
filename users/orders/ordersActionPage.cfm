@@ -1,10 +1,12 @@
 <cfscript>
  if (structKeyExists(session, "userid") and len(session.userid) > 0){
     finalorders=queryExecute(
-    "select o.int_order_id,o.int_user_id,o.int_total_amount,o.int_payment_method,o.int_order_status,o.int_payment_status,o.address,i.int_product_id,i.int_price,i.int_quantity from tbl_orders as o join tbl_order_items as i on i.int_order_id=o.int_order_id where o.int_user_id=?",
-    [value=session.userid],
+    "select i.int_order_id,i.int_product_id,i.int_price,i.int_quantity ,p.str_name from tbl_order_items as i join tbl_products as p on i.int_product_id = p.int_product_id   
+     JOIN tbl_orders as o  ON o.int_order_id  = i.int_order_id  where o.int_user_id=? ORDER BY i.int_order_id",
+    [session.userid],
     {datasource=application.datasource}
     );
  
+   
  }
 </cfscript>

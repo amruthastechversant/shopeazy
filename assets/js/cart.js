@@ -13,6 +13,7 @@ function changeQuantity(amount){
 
 let totalPrice = 0;
 
+
 function changeQuantity(increment, product_id,event) {
     const quantitySpan = event.target.parentElement.querySelector('.quantity');
     let quantity = parseInt(quantitySpan.textContent);
@@ -93,3 +94,23 @@ function getTotalPrice(){
     const encodeTotal=encodeURIComponent(finalTotal);
     window.location.href='../orders/checkout.cfm?finalTotal=' +encodeTotal;
 }
+
+
+$(document).ready(function() {
+$('#checkoutForm').on('submit',function(e){
+    let isValid=true;
+    var address=$('#address').val();
+    var payment_option=$('#payment_option').val();
+    if(address == ""){
+        $('#addressError').text('Enter Address');
+        isValid=false;
+    }
+    if(payment_option ==""){
+        $('#paymentError').text('Select Payment');
+        isValid=false;
+    }
+    if(!isValid){
+        e.preventDefault();
+    }
+});
+});

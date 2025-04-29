@@ -1,3 +1,4 @@
+
 <cfinclude  template="orderConfirmationAction.cfm">
 <!DOCTYPE html>
 <html lang="en">
@@ -5,9 +6,14 @@
 <cfinclude  template="../../layouts/header.cfm">
 <body>
 <!--- header div--->
-    <cfinclude  template="../../layouts/navbar.cfm">
+<cfinclude  template="../../layouts/navbar.cfm">
+<cfoutput>
+    <cfif structKeyExists(session, "success_msg")>
+        <div class="fs-1 text-center text-success">#session.success_msg#
+    </cfif>
+    <cfset structDelete(session, "success_msg")>
+</cfoutput>
     <div class="row pt-5 pb-5">
-       
         <div class="col-2"></div>
 <!---             <cfdump  var="#orderItems#"> --->
             <div class="col-md-4">
@@ -19,7 +25,7 @@
                             <div class="">
                                 <img src="../../productImages/iphone16_.jpg" class="card-img-top" alt="...">
                                     <div class="">
-                                        <h5 class="">#orderItems.str_name#</h5>
+                                        <h4 class="">#orderItems.str_name# &times;#orderItems.int_quantity# Nos </h4>
                                         <span aria-hidden="true">
                                             <span class="a-price-symbol">&##8377</span>
                                             <span class="a-price-whole">#orderItems.int_price#</span>
@@ -33,11 +39,8 @@
                 </div>
             </div>
         </div>
-       
     </div>
-
-
-    <cfinclude  template="../../layouts/footer.cfm">  
+<cfinclude  template="../../layouts/footer.cfm">  
 </body>
 </html>
 </cfoutput>

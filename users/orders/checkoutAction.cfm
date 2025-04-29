@@ -15,26 +15,42 @@
                 addOrderItems(orderID,Item);
             }
           structDelete(session, "cart");
+        session.success_msg="payment successfull";
             location(url="#application.appBasePath#users/orders/orderConfirmationPage.cfm?status=orders&orderId=#orderID#")
 
         }
 
     }
-    function getOrderDetails(){
-        qrycheckorder=queryExecute(
-            "select int_order_id from tbl_orders where int_user_id=?",
-            [
-                {value=userId,cfsqltype="cf_sql_integer"}
-            ],
-            {datasource=application.datasource}
-            )
-        if(qrycheckorder.recordCount NEQ 0){
-            return qrycheckorder.int_order_id;
-        }
-        else{
-            return 0;
-        }
-    }
+    // function setDefaultValues()  access="public" returntype="any"{
+    //     variables.address="";
+    //     variables.payment_option="";
+    //     variables.error_msg="";
+    //     variables.success_msg="";
+
+    // }
+
+    // function getFormValues() access="public" returntype="any"{
+    //     if (structKeyExists(form, "confirmOrder")){
+    //         variables.address=form.address;
+    //         variables.payment_option=form.payment_option;
+            
+    //     }
+    // }
+    // function getOrderDetails(){
+    //     qrycheckorder=queryExecute(
+    //         "select int_order_id from tbl_orders where int_user_id=?",
+    //         [
+    //             {value=userId,cfsqltype="cf_sql_integer"}
+    //         ],
+    //         {datasource=application.datasource}
+    //         )
+    //     if(qrycheckorder.recordCount NEQ 0){
+    //         return qrycheckorder.int_order_id;
+    //     }
+    //     else{
+    //         return 0;
+    //     }
+    // }
     function insertOrderquery(){
         queryExecute(
             "insert into tbl_orders(int_user_id,int_total_amount,int_payment_method,int_order_status,int_payment_status,address,created_at,updated_at)values(?,?,?,?,?,?,?,?)",
@@ -73,7 +89,6 @@
             {datasource=application.datasource}
             
         );
-
     }
     
 

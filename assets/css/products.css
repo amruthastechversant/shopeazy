@@ -1,0 +1,34 @@
+/* product color css */
+.color-options {
+	display: none;
+	margin-top: 10px;
+}
+
+.color-options div {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	display: inline-block;
+	margin-right: 10px;
+	border: 2px solid #ccc;
+	cursor: pointer;
+	transition: transform 0.2s;
+}
+
+.color-options div:hover {
+	transform: scale(1.2);
+	border-color: #000;
+}
+
+#productColor {
+	margin-top: 10px;
+}
+
+td:first-child {
+    width: 150px;         /* Set a fixed width as needed */
+    vertical-align: top;  /* Align with top if multiple lines */
+    text-align: right;    /* Align label text to the right */
+    padding-right: 10px;  /* Space between label and input */
+}
+
+/* end */

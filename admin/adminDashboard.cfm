@@ -1,3 +1,4 @@
+<cfoutput>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,11 +15,11 @@
         <h2>Admin</h2>
       </div>
       <ul class="sidebar-nav">
-        <li><a href="../index.cfm">Dashboard</a></li>
-        <li><a href="#">Customers</a></li>
-        <li><a href="#">Sellers</a></li>
-        <li><a href="#">Orders</a></li>
-        <li><a href="#">Products</a></li>
+        <li><a href="../index.cfm0">Dashboard</a></li>
+        <li><a href="">Customers</a></li>
+        <li><a href="">Sellers</a></li>
+        <li><a href="">Orders</a></li>
+        <li><a href="#application.appBasePath#admin/products/addProducts.cfm">Products</a></li>
       </ul>
     </div>
 
@@ -28,9 +29,9 @@
       <div class="header">
         <h1>Admin Dashboard</h1>
         <div class="header-menu">
-          <span><a href="#">Orders</a></span>
-          <span><a href="#">Most Sold</a></span>
-          <span><a href="#">Payments</a></span>
+          <span><a href="">Orders</a></span>
+          <span><a href="">Most Sold</a></span>
+          <span><a href="">Payments</a></span>
         </div>
       </div>
 
@@ -74,3 +75,5 @@
 
 </body>
 </html>
+</cfoutput>
+

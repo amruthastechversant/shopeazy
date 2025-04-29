@@ -132,3 +132,23 @@ const first = () => { let count = 0; const second = () => { count = count + 1; r
 //join for getting products based on id
 select  from tbl_products as p Join tbl_order_items as i
                on p.int_product_id=i.int_product_id;
+// join tbl_orders,tbl_Order_Items,tbl_products for listing orders
+select i.int_order_id,i.int_product_id,i.int_price,i.int_quantity ,p.str_name from tbl_order_items as i join tbl_products as p on i.int_product_id = p.int_product_id   
+     JOIN tbl_orders as o  ON o.int_order_id  = i.int_order_id  where o.int_user_id=?;
+
+
+CREATE TABLE tbl_product_properties (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    str_size VARCHAR(10),
+    str_color VARCHAR(20),
+    str_material VARCHAR(50)
+);
+
+
+CREATE TABLE tbl_product_image (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    int_product_id INT,
+    image_path VARCHAR(255),
+    FOREIGN KEY (int_product_id) REFERENCES tbl_products(int_product_id)
+);
+
