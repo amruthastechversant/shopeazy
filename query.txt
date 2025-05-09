@@ -137,13 +137,8 @@ select i.int_order_id,i.int_product_id,i.int_price,i.int_quantity ,p.str_name fr
      JOIN tbl_orders as o  ON o.int_order_id  = i.int_order_id  where o.int_user_id=?;
 
 
-CREATE TABLE tbl_product_properties (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    str_size VARCHAR(10),
-    str_color VARCHAR(20),
-    str_material VARCHAR(50)
-);
-
+create table tbl_product_properties(id int auto_increment primary key,str_properties varchar(100));
+insert into tbl_product_properties(str_properties) values('size'),('color'),('materials');
 
 CREATE TABLE tbl_product_image (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -152,3 +147,71 @@ CREATE TABLE tbl_product_image (
     FOREIGN KEY (int_product_id) REFERENCES tbl_products(int_product_id)
 );
 
+CREATE TABLE tbl_product_variants (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    int_product_id INT,
+    int_properties_id INT,
+    str_properties_value VARCHAR(255),
+    str_colour_code VARCHAR(7),
+    FOREIGN KEY (int_product_id) REFERENCES tbl_products(int_product_id),
+	FOREIGN KEY (int_properties_id) REFERENCES tbl_product_properties(id)
+    
+);
+
+
+
+<cfif structKeyExists(url, "id")>
+                <cfset previousPropertyName="">
+                <cfoutput query="variables.editVarient" group="str_properties">
+                    <cfset propertyName=variables.editVarient.str_properties>
+                    <cfset propertyId =variables.editVarient.int_properties_id>
+                    <cfset propertyValue=variables.editVarient.str_properties_value>
+                <cfif propertyName NEQ previousPropertyName>
+                    <tr>
+                        <td><label for="#propertyName#"class="form-label"></label>#propertyName#</td>
+                        <td>
+                            <div id="#propertyName#Container">
+                            <cfif variables.editVarient.str_properties EQ propertyName >
+                                <div class="input-wrapper mb-2 d-flex align-items-center">
+                                    <input type="text" name="#propertyName#_#propertyId#" id="#propertyName#" value="#variables.editVarient.str_properties_value#" class="form-control">
+                                    <button type="button" class="btn btn-info ms-2" onclick="toggleOptions(this, '#propertyName#')">+</button>
+                                </div>
+                            </cfif>
+                            </div>
+                        
+                        </td>
+                    </tr>
+                    <cfset previousPropertyName=propertyName>
+                <cfelse>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div id="#propertyName#Container">
+                        <cfif variables.editVarient.str_properties EQ propertyName>
+                            <div class="input-wrapper mb-2 d-flex align-items-center">
+                                <input type="text" name="#propertyName#_#propertyId#" id="#propertyName#" value="#variables.editVarient.str_properties_value#" class="form-control">
+                                <button type="button" class="btn btn-info ms-2" onclick="toggleOptions(this, '#propertyName#')">+</button>
+                            </div>
+                        </div>
+                        </cfif>
+                        </td>
+                    </tr>
+                </cfif>
+                </cfoutput>
+
+            <cfelse>
+
+            <cfoutput query="variables.qryGetProductProperties">
+            <tr>
+                <td><label for="#variables.qryGetProductProperties.str_properties#"class="form-label"></label>#variables.qryGetProductProperties.str_properties#</td>
+                <td>
+                    <div id="#variables.qryGetProductProperties.str_properties#Container">
+                        <div class="input-wrapper mb-2 d-flex align-items-center">
+                            <input type="text" name="#variables.qryGetProductProperties.str_properties#_#variables.qryGetProductProperties.id#" id="#variables.qryGetProductProperties.str_properties#"  class="form-control">
+                            <button type="button" class="btn btn-info ms-2" onclick="toggleOptions(this, '#variables.qryGetProductProperties.str_properties#')">+</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </cfoutput>
+            </cfif>

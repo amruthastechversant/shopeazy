@@ -5,8 +5,8 @@ function toggleOptions(btn, type) {
         containerId='colorContainer';
     }else if(type==='size') {
         containerId='sizeContainer';
-    }else if(type==='Material') {
-        containerId='MaterialContainer';
+    }else if(type==='materials') {
+        containerId='materialsContainer';
     }
     const container=document.getElementById(containerId);
     const parentDiv = btn.parentElement;

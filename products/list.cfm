@@ -10,7 +10,7 @@
       <div class="row">
         <cfoutput query="variables.qryProducts">
         <div class="card mx-2" style="width: 18rem; cursor:pointer;">
-          <img src="../productImages/Apple iPhone 15.jpg" class="card-img-top" alt="..." onclick="window.location.href='#application.appBasePath#products/detail.cfm'">
+          <img src="#application.appBasePath##variables.qryProducts.image_path# " class="card-img-top" alt="..." onclick="window.location.href='#application.appBasePath#products/detail.cfm'">
             <div class="card-body">
               <h5 class="card-title">#variables.qryProducts.str_name#</h5>
               <span aria-hidden="true">

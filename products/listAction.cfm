@@ -62,7 +62,8 @@
 function getAllProducts(){
     var products = QueryNew('');
     products=queryExecute(
-        "select int_product_id,str_name,int_price from tbl_products where int_product_status=1",
+        "select p.int_product_id,p.str_name,p.int_price,i.image_path from tbl_products  as p join tbl_product_image as i on 
+        p.int_product_id=i.int_product_id where p.int_product_status=1",
         [],
         {datasource=application.datasource}
     )
