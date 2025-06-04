@@ -158,60 +158,82 @@ CREATE TABLE tbl_product_variants (
     
 );
 
+create table tbl_seller_permission(id int auto_increment primary key,name varchar(20),description varchar(20));
+insert into  tbl_seller_permission (name,description)values('addProduct','addproduct'),
+-- ('editProduct','edit their own product'),('viewOrders','view Customer orders'),('manage-inventory','manage product stock'),('view sales report','see their own sales report');
+
+function addProductVariants(productId) {
+    // 1. Get existing values from DB
+    qryExistingVariants = queryExecute(
+        "SELECT int_properties_id, str_properties_value 
+         FROM tbl_product_variants 
+         WHERE int_product_id = ?",
+        [ { value = productId, cfsqltype = "cf_sql_integer" } ],
+        { datasource = application.datasource }
+    );
+
+    // 2. Organize existing variants into a struct of arrays
+    var existingMap = {};
+    for (i = 1; i <= qryExistingVariants.recordCount; i++) {
+        var pid = qryExistingVariants.int_properties_id[i];
+        var val = qryExistingVariants.str_properties_value[i];
+        if (!structKeyExists(existingMap, pid)) {
+            existingMap[pid] = [];
+        }
+        arrayAppend(existingMap[pid], val);
+    }
+
+    // 3. Loop through form values to determine what to insert/update
+    for (i = 1; i <= variables.qryGetProductProperties.recordCount; i++) {
+        var propId   = variables.qryGetProductProperties["id"][i];
+        var propName = variables.qryGetProductProperties["str_properties"][i];
+        var fieldName = propName & "_" & propId;
+
+        if (structKeyExists(form, fieldName)) {
+            var newValues = listToArray(trim(form[fieldName]), ",");
+            var oldValues = structKeyExists(existingMap, propId) ? existingMap[propId] : [];
+
+            // 4. Update if changed; insert if new
+            for (j = 1; j <= arrayLen(newValues); j++) {
+                var thisValue = trim(newValues[j]);
+                if (len(thisValue)) {
+                    if (arrayContains(oldValues, thisValue)) {
+                        // Value already exists, no need to do anything
+                        continue;
+                    }
+
+                    // Check if there's an old value to update
+                    if (arrayLen(oldValues) > 0) {
+                        // Just update the first old one (assuming one-to-one per property)
+                        queryExecute(
+                            "UPDATE tbl_product_variants
+                             SET str_properties_value = ?
+                             WHERE int_product_id = ? AND int_properties_id = ? AND str_properties_value = ?",
+                            [
+                                { value = thisValue, cfsqltype = "cf_sql_varchar" },
+                                { value = productId, cfsqltype = "cf_sql_integer" },
+                                { value = propId,    cfsqltype = "cf_sql_integer" },
+                                { value = oldValues[1], cfsqltype = "cf_sql_varchar" }
+                            ],
+                            { datasource = application.datasource }
+                        );
+                    } else {
+                        // Insert new if no old value exists
+                        queryExecute(
+                            "INSERT INTO tbl_product_variants (int_product_id, int_properties_id, str_properties_value)
+                             VALUES (?, ?, ?)",
+                            [
+                                { value = productId, cfsqltype = "cf_sql_integer" },
+                                { value = propId,    cfsqltype = "cf_sql_integer" },
+                                { value = thisValue, cfsqltype = "cf_sql_varchar" }
+                            ],
+                            { datasource = application.datasource }
+                        );
+                    }
+                }
+            }
+        }
+    }
+}
 
 
-<cfif structKeyExists(url, "id")>
-                <cfset previousPropertyName="">
-                <cfoutput query="variables.editVarient" group="str_properties">
-                    <cfset propertyName=variables.editVarient.str_properties>
-                    <cfset propertyId =variables.editVarient.int_properties_id>
-                    <cfset propertyValue=variables.editVarient.str_properties_value>
-                <cfif propertyName NEQ previousPropertyName>
-                    <tr>
-                        <td><label for="#propertyName#"class="form-label"></label>#propertyName#</td>
-                        <td>
-                            <div id="#propertyName#Container">
-                            <cfif variables.editVarient.str_properties EQ propertyName >
-                                <div class="input-wrapper mb-2 d-flex align-items-center">
-                                    <input type="text" name="#propertyName#_#propertyId#" id="#propertyName#" value="#variables.editVarient.str_properties_value#" class="form-control">
-                                    <button type="button" class="btn btn-info ms-2" onclick="toggleOptions(this, '#propertyName#')">+</button>
-                                </div>
-                            </cfif>
-                            </div>
-                        
-                        </td>
-                    </tr>
-                    <cfset previousPropertyName=propertyName>
-                <cfelse>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <div id="#propertyName#Container">
-                        <cfif variables.editVarient.str_properties EQ propertyName>
-                            <div class="input-wrapper mb-2 d-flex align-items-center">
-                                <input type="text" name="#propertyName#_#propertyId#" id="#propertyName#" value="#variables.editVarient.str_properties_value#" class="form-control">
-                                <button type="button" class="btn btn-info ms-2" onclick="toggleOptions(this, '#propertyName#')">+</button>
-                            </div>
-                        </div>
-                        </cfif>
-                        </td>
-                    </tr>
-                </cfif>
-                </cfoutput>
-
-            <cfelse>
-
-            <cfoutput query="variables.qryGetProductProperties">
-            <tr>
-                <td><label for="#variables.qryGetProductProperties.str_properties#"class="form-label"></label>#variables.qryGetProductProperties.str_properties#</td>
-                <td>
-                    <div id="#variables.qryGetProductProperties.str_properties#Container">
-                        <div class="input-wrapper mb-2 d-flex align-items-center">
-                            <input type="text" name="#variables.qryGetProductProperties.str_properties#_#variables.qryGetProductProperties.id#" id="#variables.qryGetProductProperties.str_properties#"  class="form-control">
-                            <button type="button" class="btn btn-info ms-2" onclick="toggleOptions(this, '#variables.qryGetProductProperties.str_properties#')">+</button>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            </cfoutput>
-            </cfif>

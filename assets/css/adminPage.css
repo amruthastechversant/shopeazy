@@ -12,7 +12,7 @@
   
   .dashboard-container {
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
   }
   
   /* Sidebar styles */
@@ -152,3 +152,92 @@
     cursor: pointer;
 }
 /* end */
+
+/* image css */
+.imageSize{
+	max-height: 100px;
+  display:block;
+}
+
+/* General styling for the order details container */
+	.order-details {
+		background-color: #f9f9f9; /* Light background */
+		padding: 20px;
+		margin-bottom: 20px;
+		border-radius: 8px; /* Rounded corners */
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		font-family: Arial, sans-serif;
+	}
+
+	/* Styling for the order heading */
+	.order-details h3 {
+		font-size: 1.5rem;
+		color: #333;
+		margin-bottom: 10px;
+	}
+
+	/* Styling for the order ID paragraph */
+	.order-details p {
+		font-size: 1rem;
+		color: #555;
+		margin-bottom: 10px;
+	}
+
+	/* Styling for the order item container */
+	.order-item {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	/* Styling for the image container */
+	.order-item img {
+		max-width: 120px;
+		border-radius: 8px;
+		margin-right: 15px;
+	}
+
+	/* Styling for the product information */
+	.order-item h5 {
+		font-size: 1.2rem;
+		color: #333;
+		margin-bottom: 5px;
+	}
+
+	/* Price styling */
+	.order-item .a-price-symbol {
+		font-size: 1.2rem;
+		font-weight: bold;
+		color: #2a9d8f; /* Price color */
+	}
+
+	.order-item .a-price-whole {
+		font-size: 1.5rem;
+		font-weight: bold;
+		color: #2a9d8f; /* Price color */
+	}
+
+	/* Styling for the estimated delivery date */
+	.order-item p {
+		font-size: 1rem;
+		color: #666;
+		margin-top: 10px;
+	}
+
+	/* Styling for the track button */
+	.track-button {
+		background-color: #2a9d8f; /* Greenish color */
+		color: white;
+		font-size: 1rem;
+		padding: 10px 15px;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+
+	/* Button hover effect */
+	.track-button:hover {
+		background-color: #1e7a61; /* Darker green on hover */
+	}

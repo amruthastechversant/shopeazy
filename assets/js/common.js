@@ -113,9 +113,8 @@ document.getElementById('adminLoginForm').addEventListener('submit', function(e)
             $('#errorMessage').text('An error occurred. Please try again.').show();
         }
     });
-
-   
 });
+
 
 document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -147,6 +146,41 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         },
         error: function() {
             $('#errormsg').text('An error occurred. Please try again.').show();
+        }
+    });
+});
+
+document.getElementById('sellerLoginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = document.getElementById('sellerEmail').value;
+    var password = document.getElementById('sellerPassword').value;
+
+    if (!email || !password) {
+        showError("Please enter Email & password for admin");
+    }
+    
+    var email=$('#sellerEmail').val();
+    var password=$('#sellerPassword').val();
+
+    $.ajax({
+        url: '/myprojects/shopeazy/users/login/loginAction.cfm?sellerlogin=true',
+        type: 'POST',
+        data: {
+            email: email,
+            password: password,
+            login: true 
+        },
+        dataType: 'json',
+        success: function(response) {
+
+            if (response.status === 'success') {
+                window.location.href = response.redirect_url;
+            } else {
+                $('#errorMessage').text(response.message).show();
+            }
+        },
+        error: function() {
+            $('#errorMessage').text('An error occurred. Please try again.').show();
         }
     });
 });

@@ -1,54 +1,82 @@
-<cfoutput>
-<cfinclude  template="fullProductsAction.cfm">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="#application.appBasePath#assets/css/adminPage.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
-<div class="main-content">
+    
+    <cfinclude  template="fullProductsAction.cfm">
+    <!DOCTYPE html> 
+    <html lang="en">
+        <cfinclude  template="#application.appBasePath#layouts/admin/head.cfm">
+        <body>
+             <div class="dashboard-container">
+                <cfinclude  template="#application.appBasePath#layouts/admin/sidebar.cfm">
+                <div class="main-content">
       <!-- Header -->
-        <div class="header">
-         
-            <h1>Admin Dashboard</h1>
-            <div class="header-menu">
-                <span><a href="">Orders</a></span>
-                <span><a href="">Most Sold</a></span>
-                <span><a href="">Payments</a></span>
+                    <cfinclude template="#application.appBasePath#layouts/admin/header.cfm">
+                    <div id="errorMessage"></div>
+                    <cfoutput>
+                    <button onclick ="window.location.href='#application.appBasePath#admin/products/addProducts.cfm'" class="btn btn-info ms-3 mb-3">ADD PRODUCT</a></button>
+                    <form class="d-flex justify-content-between align-items-center" action="#application.appBasePath#admin/products/fullProducts.cfm" method="POST">
+                        <input type="search" class="form-control  mr-sm-2 ms-3" placeholder="Search" aria-label="Search" id="keyword" name="keyword" >
+                        <button type="submit"><i class="fas fa-search my-2 ms-3"></i> </button>
+                    </form>
+                    </cfoutput>
+                    
+                    <table class="w-100 table table-bordered table sm tbl-responsive" align="center">
+                        <thead>
+                            <tr>
+                            <th>ID</th>
+                            <th>Product Name</th>
+                            <th>Price </th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>EDIT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    <cfoutput query="variables.qryAllProducts">
+                            <tr>
+                            <td>#variables.qryAllProducts.int_product_id#</td>
+                            <td id="name_#variables.qryAllProducts.int_product_id#">#variables.qryAllProducts.str_name# 
+                            <cfif variables.qryAllProducts.status EQ "inactive">
+                             <span class="badge bg-warning" >#variables.qryAllProducts.status#</span>
+                            </cfif>
+                            </td>
+                            <td>#variables.qryAllProducts.int_price#</td>
+                            <td>#variables.qryAllProducts.str_description#</td>
+                            <td class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="status_#variables.qryAllProducts.int_product_id#" <cfif variables.qryAllProducts.status EQ "active">checked </cfif> onclick="changestatus(#variables.qryAllProducts.int_product_id#);">
+                         <label class="form-check-label" for="status_#variables.qryAllProducts.int_product_id#"></label>
+                            </td>
+                            <td>
+                                <a href="addProducts.cfm?id=#int_product_id#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            </td>
+                            </tr>
+                </cfoutput>
+                     <tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        <cfoutput>
+            <div class="m-5">
+            <nav aria-label="page-navigation">
+                <ul class="pagination justify-content-end">
+                <cfif url.page GT 1>
+                    <li class="page-item">
+                    <a class="page-link" href="fullProducts.cfm?#url.page-1#" aria-label="previous">previous</a>
+                    </li>
+                </cfif>
 
-    <table class="table table-bordered table-sm table-responsive" align="center">
-        <thead>
-            <tr>
-            <th>ID</th>
-            <th>Product Name</th>
-            <th>Price </th>
-            <th>Description</th>
-            <th>EDIT</th>
-            </tr>
-        </thead>
-        <tbody>
-            <cfloop query="variables.qryAllProducts">
-            <tr>
-            <td>#int_product_id#</td>
-            <td>#str_name#</td>
-            <td>#int_price#</td>
-            <td>#str_description#</td>
-            <td>
-                <a href="addProducts.cfm?id=#int_product_id#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-            </td>
-            </tr>
-            </cfloop>
-        </tbody>
-    </table>
-</div>
-</body>
-</html>
-</cfoutput>
+                <cfloop index="i" from="1" to="#variables.totalPages#">
+                    <li class="page-item <cfif i EQ url.page>active</cfif>">
+                    <a class="page-link" href="?page=#i#">#i#</a>
+                    </li>
+                </cfloop>
+
+                <cfif url.page LT variables.totalPages>
+                    <li class="page-item">
+                    <a class="page-link" href="fullProducts.cfm?#url.page +1#" aria-label="Next">Next</a>
+                    </li>
+                </cfif>
+                </ul>
+            </nav>
+            </div>
+        </cfoutput>
+        </body>
+    </html>

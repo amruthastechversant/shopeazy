@@ -482,3 +482,60 @@ input.form-control{width: 500px;}
 	color: #f0eeee;
 }
 /* end */
+
+/* product detail page css  */
+.img-size{height: 700px;}
+.displaycolorcode{
+	display:inline-block;
+	width:20px;height:20px;
+	border:1px solid #000;
+	margin-right:5px;
+	}
+/* end */
+
+/* sample */
+ 
+   
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.4em;
+    }
+
+    .card p {
+      margin-bottom: 15px;
+      color: #555;
+    }
+
+   
+    .card button:hover {
+      background-color: #0056b3;
+	}
+
+	 .dashboard-cards {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  
+ 

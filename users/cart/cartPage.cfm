@@ -28,7 +28,8 @@
                                 <div class="mx-auto">
                                     <input type="checkbox" name="" value="">
                                     <div class="d-flex ">
-                                        <img src="../../productImages/Apple iPhone 15.jpg" class="card-img-top" alt="...">
+                                        <img src="#application.appBasePath##item.image_path#" class="card-img-top" alt="...">
+
                                         <div class="card-body d-flex flex-column justify-content-between ml-3">
                                     
                                             <h5 class="cart-title">#item.str_name#</h5>

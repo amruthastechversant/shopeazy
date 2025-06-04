@@ -5,10 +5,10 @@
 <!--- <cfdump  var="#session.cart#"> --->
 <!DOCTYPE html>
 <html lang="en">
-<cfinclude  template="../../layouts/header.cfm">
+<cfinclude  template="#application.appBasePath#layouts/admin/head.cfm">
+<cfinclude  template="#application.appBasePath#layouts/admin/header.cfm">
 <body>
 <!--- header div--->
-    <cfinclude  template="../../layouts/navbar.cfm">
     <div class="row pt-5 pb-5">
         <div class="col-2"></div>
             <div class="col-md-4">
@@ -19,7 +19,7 @@
                         <cfoutput>
                             <div class="order-item">
                                 <div class="">
-                                    <img src="#application.appBasePath##finalorders.image_path#" class="card-img-top" alt="...">
+                                    <img src="../../productImages/iphone16_.jpg" class="card-img-top" alt="...">
                                     <div class="">
                                         <h3 class="">#finalorders.str_name# &times;#finalorders.int_quantity# Nos</h3>
                                         <p><strong>Estimated Delivery Date:</strong> March 30, 2025</p>
@@ -33,6 +33,5 @@
             </div>
         </div> 
     </div>
-    <cfinclude  template="../../layouts/footer.cfm">  
 </body>
 </html>

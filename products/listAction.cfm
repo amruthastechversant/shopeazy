@@ -2,8 +2,10 @@
     if (structKeyExists(session, "userid") and len(session.userid) > 0) {
         variables.userId = session.userid;
     }
-    
-    variables.qryProducts=getAllProducts();
+
+    variables.qryProductsResult=getAllProducts();
+
+    variables.qryProducts=variables.qryProductsResult.products;
     session.itemAdded = false;
     // writeDump(getProductId());abort;
     if (structKeyExists(form, "addToCart_DB")){
@@ -27,25 +29,37 @@
         session.cart = [];
     }
     if(structKeyExists(form, "addToCart")){ 
-        newProduct=true;
-       for(i=1;i<=arrayLen(session.cart);i++){
-            variables.cartItem=session.cart[i];
-        if(variables.cartItem.product_id==form.product_id){
-            variables.cartItem.quantity=variables.cartItem.quantity + 1;
-            variables.cartItem.price_at_time_of_addition=variables.cartItem.price_at_time_of_addition + form.product_price;
-            newProduct=false;
-        }
-       }
-       if(newProduct){
-        variables.product={
-            product_id=form.product_id,
-            str_name=form.product_name,
-            price_at_time_of_addition=form.product_price,
-            quantity=1
-        };
-        arrayAppend(session.cart,variables.product);
 
-       }
+        qryGetProduct = queryExecute(
+            "select p.int_product_id,p.str_name,p.int_price,p.int_stock_quantity,pI.image_path from tbl_products as p join tbl_product_image as pI
+            on p.int_product_id = pI.int_product_id where p.int_product_id=?",
+            [{value=form.product_id,cfsqltype="cf_sql_integer"}],
+            {datasource=application.datasource}
+        )
+
+          productIdList = "";
+            for (item in session.cart) {
+                productIdList &= (len(productIdList) ? "," : "") & item.product_id;
+            }
+            
+            existingProduct=listFind(productIdList, form.product_id);
+
+            if(existingProduct){
+                session.cart[existingProduct].quantity+=1;
+                session.cart[existingProduct].price_at_time_of_addition+=qryGetProduct.int_price
+            }
+            else{
+            variables.product={
+                product_id=qryGetProduct.int_product_id,
+                str_name=qryGetProduct.str_name,
+                price_at_time_of_addition=qryGetProduct.int_price,
+                quantity=1,
+                image_path = qryGetProduct.image_path
+            };
+
+            arrayAppend(session.cart,variables.product);
+            }
+            // writeDump(variables.product);abort;
         session.itemAdded = true;
      location(url="#application.appBasePath#users/cart/cartPage.cfm?status=added", addtoken=false);
        
@@ -60,14 +74,40 @@
     return productId;
    }
 function getAllProducts(){
+    param name="url.page",default=1;
+    param name="form.keyword" default="%%"; // Ensure 'url.keyword' exists
+
+    perPage=3;
+    offset=(url.page - 1)*perPage;  
+     
+    // totalRecords=
     var products = QueryNew('');
+    var qryTotal=queryNew('');
+    var keyword = "%" & trim(form.keyword) & "%";
+    var qryTotal = queryExecute(
+        "SELECT COUNT(*) as totalcount FROM tbl_products p 
+        JOIN tbl_product_image i ON p.int_product_id = i.int_product_id 
+        WHERE p.int_product_status = 1
+        AND p.str_name LIKE :keyword",
+        [
+            KEYWORD:{name="keyword", value=keyword, cfsqltype="cf_sql_varchar"}
+        ], 
+        {datasource=application.datasource}
+    );
+    var totalRecords = qryTotal.totalcount;
+    variables.totalPages = ceiling(totalRecords/perPage);
+   
     products=queryExecute(
         "select p.int_product_id,p.str_name,p.int_price,i.image_path from tbl_products  as p join tbl_product_image as i on 
-        p.int_product_id=i.int_product_id where p.int_product_status=1",
-        [],
+        p.int_product_id=i.int_product_id where p.int_product_status=1 and p.str_name LIKE :keyword  LIMIT :limit OFFSET :offset",
+        [
+            KEYWORD:{value:keyword,name:keyword,cfsqltype="cf_sql_varchar"},
+           LIMIT:{value:perPage,cfsqltype="cf_sql_integer"},
+           OFFSET:{value:offset,cfsqltype="cf_sql_integer"}
+        ],
         {datasource=application.datasource}
     )
-    return products;
+    return {products=products, totalRecords=totalRecords};
 }
 function getCartDetails(){
     var qryCheckcart = QueryNew('');

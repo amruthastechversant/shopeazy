@@ -65,7 +65,7 @@
           <label for="password">Password:</label>
           <input type="password" id="sellerPassword" name="sellerPassword" required>
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" name="sellerLogin">Login</button>
       </form>
        <p class="bottomlink text-center"><a href="#application.appBasePath#users/login/seller/register.cfm" id="createaccount">New to Shopeazy? Create seller Account</a></p>
     </div>
