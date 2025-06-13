@@ -1,10 +1,9 @@
-
 <cfinclude  template="listAction.cfm">
 <!DOCTYPE html>
 <html lang="en">
-<cfinclude  template="../layouts/header.cfm">
+<cfinclude  template="#application.appBasePath#layouts/header.cfm">
 <body>
-   <cfinclude  template="../layouts/navbar.cfm">
+   <cfinclude  template="#application.appBasePath#layouts/navbar.cfm">
     <div class="container text-center mt-5 mb-5">
       <div class="row">
         <cfoutput query="variables.qryProducts">
@@ -23,7 +22,7 @@
                <a href="" class="btn btn-primary mt-3">Buy Now</a>
             </div>
         </div>
-      </cfoutput>
+        </cfoutput>
       </div>
     </div>
 

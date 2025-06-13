@@ -82,7 +82,6 @@
             </div>
         </div>
 
-        <!-- Wrap the pagination in a single cfoutput block -->
         <div class="m-5">
             <nav aria-label="page-navigation">
                 <ul class="pagination justify-content-end">
@@ -106,6 +105,7 @@
                 </ul>
             </nav>
         </div>
+    <script src="#application.appBasePath#assets/js/sellerDetail.js"></script>
     </body>
 </html>
 </cfoutput>

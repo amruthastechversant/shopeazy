@@ -1,4 +1,3 @@
-
 <cfinclude  template="addProductsAction.cfm">
 <cfoutput>
 <!DOCTYPE html>
@@ -25,85 +24,69 @@
                             Updated !!
                         </div>
                     </cfif>
-<!---                         <cfdump  var="#(structKeyExists(variables, 'editProduct') ? variables.editProduct.str_name : '')#" abort> --->
-
                     <table>
                     <tr>
                         <td><label for="productName" class="form-label">Product Name</label></td>
                         <td>
-                        <input type="text" name="productName" 
-                        value="#(structKeyExists(variables, 'editProduct') ? variables.editProduct.str_name : '')#" />
+                            <input type="text" name="productName" 
+                            value="#(structKeyExists(variables, 'editProduct') ? variables.editProduct.str_name : '')#" />
                         </td>
                     </tr>
                     <tr>
                         <td><label for="productImage" class="form-label">Product Image</label></td>
-                        <td><input type="file" class="form-control" id="productImage" name="productImage">
-                        <cfif structKeyExists(variables, "editImage") and len(trim(variables.editImage.image_path))>
-                            <img src="#application.appBasePath##variables.editImage.image_path#" alt="productImage" class="imageSize" >
-                        </cfif>
+                        <td>
+                            <input type="file" class="form-control" id="productImage" name="productImage">
+                            <cfif structKeyExists(variables, "editImage") and len(trim(variables.editImage.image_path))>
+                                <img src="#application.appBasePath##variables.editImage.image_path#" alt="productImage" class="imageSize" >
+                            </cfif>
                         </td> 
                     </tr>
                     <tr>
                         <td><label for="productPrice" class="form-label">Price ($)</label></td>
-                        <td><input type="number" step="0.01" class="form-control" id="productPrice" name="productPrice"
-                        value="#(structKeyExists(variables, 'editProduct') ? variables.editProduct.int_price: '')#"/></td>
+                        <td>
+                            <input type="number" step="0.01" class="form-control" id="productPrice" name="productPrice"
+                            value="#(structKeyExists(variables, 'editProduct') ? variables.editProduct.int_price: '')#"/>
+                        </td>
                     </tr>
                     <tr>
                         <td><label for="productDescription" class="form-label">Description</label></td>
                         <td>
-                       
-                        <textarea class="form-control" id="productDescription" name="productDescription" cols="2" rows="2"> 
-                        #(structKeyExists(variables, 'editProduct') ? variables.editProduct.str_description : '')#</textarea> 
+                            <textarea class="form-control" id="productDescription" name="productDescription" cols="2" rows="2"> 
+                            #(structKeyExists(variables, 'editProduct') ? variables.editProduct.str_description : '')#
+                            </textarea> 
                         </td>
                     </tr>
                     <tr>
                         <td><label for="productStock" class="form-label">Stock Quantity</label></td>
-                        <td><input type="number" class="form-control" id="productStock" name="productStock"
-                        value="#(structKeyExists(variables, 'editProduct') ? variables.editProduct.int_stock_quantity: '')#"/></td>
+                        <td>
+                            <input type="number" class="form-control" id="productStock" name="productStock"
+                            value="#(structKeyExists(variables, 'editProduct') ? variables.editProduct.int_stock_quantity: '')#"/>
+                        </td>
                     </tr>
                     <tr>
                         <td><label for="category" class="form-label">Category</label> </td>
                         <td>
                         <select name ="category_id"   id="category">
-                            <option value="" <cfif Not structKeyExists(variables, "editProduct") OR not len(variables.editProduct.int_category_id)>selected</cfif>select Category</option>
+                            <option value="" <cfif Not structKeyExists(variables, "editProduct") OR not len(variables.editProduct.int_category_id)>selected</cfif>>select Category</option>
                             <cfloop query="variables.categoryqryResult">
-                            <option value="#int_category_id#"
-                            <cfif structKeyExists(variables, "editProduct") AND variables.editProduct.int_category_id EQ int_category_id>
-                            selected="selected"
-                            </cfif>>
-                            #str_category_name#
+                                <option value="#int_category_id#"
+                                <cfif structKeyExists(variables, "editProduct") AND variables.editProduct.int_category_id EQ int_category_id>
+                                selected="selected"
+                                </cfif>>
+                                #str_category_name#
                             </cfloop>
                         </select>
                         </td>
                     </tr>
-                    <cfif structKeyExists(url, "id")>
-                    <tr>
-                        <td><label for="productStatus" class="form-label">Product Status</label></td>
-                        <td>
-                        <select name="status_id" id="productStatus">
-                            <option value ="" disabled>Select status</option>
-                            <cfloop query="variables.qrygetProductStatus">
-                            <option value="#variables.qrygetProductStatus.id#"
-                            <cfif structKeyExists(variables, "editProduct") AND variables.editProduct.int_product_status EQ variables.qrygetProductStatus.id>
-                            selected="selected"
-                            </cfif>>
-                            #variables.qrygetProductStatus.status#</option>
-                            </cfloop>
-                        </select>
-                        </td>
-                    </tr>
-                    </cfif>
-                </cfoutput>
-                <tr><td><h5>Properties</h5></td></tr>
+</cfoutput>
+                    <tr><td><h5>Properties</h5></td></tr>
                 <cfif structKeyExists(url, "id")>
-                    <cfset previousPropertyName="">
+                        <cfset previousPropertyName="">
                     <cfoutput query="variables.editVarient" group="str_properties">
                         <cfset propertyName=variables.editVarient.str_properties>
                         <cfset propertyId =variables.editVarient.property_id>
                         <cfset propertyValue=variables.editVarient.str_properties_value>
                         <cfif propertyName NEQ previousPropertyName>
-<!---                  <cfdump  var="#propertyName NEQ previousPropertyName#" abort>  --->
-                        
                             <tr>
                                 <td><label for="#propertyName#"class="form-label"></label>#propertyName#</td>
                                 <td>
@@ -144,16 +127,18 @@
                     </tr>
                     </cfoutput>
                 </cfif>
+                <cfoutput>
                             </table>
                             <div class="d-flex mt-3">
                                 <button type="submit" class="btn btn-primary ms-auto" name="addProduct"><cfif structKeyExists(url,"id")>SAVE<cfelse>SAVE</cfif> PRODUCT</button>
                             </div>
                         </form>
                     </div>
-                    <script src="../../assets/js/productColor.js"></script>
+                    <script src="#application.appBasePath#assets/js/addProduct.js"></script>
                 </div>
             </div>
         </div>
     </body>
 </html>
+</cfoutput>
 

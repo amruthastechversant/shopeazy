@@ -1,9 +1,15 @@
 <cfsetting showdebugoutput="false">
 <cfscript>
+variables.id=session.id;
 variables.productList= createObject("component", application.appBasePath & "models.productList");
 variables.qryAllProductsResult=variables.productList.getAllProducts();
 variables.totalPages=variables.qryAllProductsResult.totalPages
 variables.qryAllProducts = variables.qryAllProductsResult.products;
+variables.qrysellerProductsList = variables.productList.getSellerProducts();
+variables.qrysellerProducts = variables.qrysellerProductsList.products;
+if(structKeyExists(session, "role") && session.role == "seller") {
+    variables.totalPages=variables.qrysellerProductsList.totalPages;
+}
 
 if (structKeyExists(url, "getStatus") && url.getStatus == "true") {
     result = {};

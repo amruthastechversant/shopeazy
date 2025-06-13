@@ -10,7 +10,7 @@
 <cfoutput>
 <!DOCTYPE html>
 <html lang="en">
-<cfinclude  template="../../layouts/header.cfm">
+<cfinclude  template="#application.appBasePath#layouts/header.cfm">
 <cfinclude  template="cartPageAction.cfm">
 <link rel="stylesheet" href="../../assets/css/cartPage.css">
 <script src="../../assets/js/cart.js"></script>
@@ -29,9 +29,7 @@
                                     <input type="checkbox" name="" value="">
                                     <div class="d-flex ">
                                         <img src="#application.appBasePath##item.image_path#" class="card-img-top" alt="...">
-
                                         <div class="card-body d-flex flex-column justify-content-between ml-3">
-                                    
                                             <h5 class="cart-title">#item.str_name#</h5>
                                             <div class="cart-container d-flex flex-column">
                                                 <div class="quantity-controls">
@@ -52,7 +50,7 @@
                                 </div>  
                             </div>
                         </cfloop>
-                    </div>
+                </div>
     <!--- display only when cart have items          --->
                     <div class="col-md-4"> 
                         <div class="checkout-box">

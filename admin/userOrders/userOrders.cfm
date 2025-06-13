@@ -2,7 +2,6 @@
     <cflocation url="#application.appBasePath#index.cfm?showLogin=1" addtoken="no">
 </cfif>
 <cfinclude  template="#application.appBasePath#users/orders/ordersActionPage.cfm">
-<!--- <cfdump  var="#session.cart#"> --->
 <!DOCTYPE html>
 <html lang="en">
 <cfinclude  template="#application.appBasePath#layouts/admin/head.cfm">

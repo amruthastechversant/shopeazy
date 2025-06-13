@@ -2,10 +2,9 @@
 <html lang="en">
 <cfoutput>
 <cfinclude  template="detailAction.cfm">
-<cfinclude  template="../layouts/header.cfm">
+<cfinclude  template="#application.appBasePath#layouts/header.cfm">
 <body>
-<cfinclude  template="../layouts/navbar.cfm">
-
+<cfinclude  template="#application.appBasePath#layouts/navbar.cfm">
     <div class="product-detail">
         <div class="product-image">
             <img src="#application.appBasePath##variables.result.image_path#" class="img-size"alt="Product Image">
@@ -15,16 +14,7 @@
             <p class="product-price">#variables.result.int_price#</p>
             <p class="detail-item-head">Description :</p>
             <p class="product-description text-dark">
-              # variables.result.str_description#
-<!---             <p class="detail-item-head">Specifications :
-                <ul>
-                    <li class="product-description text-dark">128 GB ROM</li>
-                    <li class="product-description text-dark">15.49 cm (6.1 inch) Super Retina XDR Display</li>
-                    <li class="product-description text-dark">48MP + 12MP | 12MP Front Camera</li>
-                    <li class="product-description text-dark">A16 Bionic Chip, 6 Core Processor Processor</li>
-                    
-                </ul>
-            </p> --->
+              # variables.result.str_description#</p>
             <p class="detail-item-head">Rating :
                 <div class="product-rating">
                 <span class="star rated">★</span>
@@ -37,7 +27,7 @@
             </p>
             <p class="detail-item-head">BRAND:</p>
             <p>Iphone</p>
-            </cfoutput>
+        </cfoutput>
             <cfoutput query = "variables.variants" group="str_properties">
                 <p class="detail-item-head">#str_properties# :
                     <div class="available-colors">
@@ -57,29 +47,15 @@
                 </p>
             </cfoutput>
             <cfoutput>
-<!---             <p class= "detail-item-head">SIZE: 
-            <div class="available-colors">
-                <div class="color-swatches">
-                    <div>
-                        <cfloop query = "variables.variants">
-                            <cfif str_properties EQ "size" >
-                                #str_properties_value#" title="#str_display_name#"></div>
-                            </cfif>
-                        </cfloop>
-                    </div>
-                </div>
-            </div>
-            </p>--->
-
             <p class="detail-item-head">SOLD BY :
             </p>
             <p>SuperComNet</p>
-            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-cart" name="addToCart">Add to Cart</button>
             <button class="btn  btn-info">In stock</button>
             <button class="btn btn-dark">Buy Now</button>
         </div>
     </div>
- <cfinclude  template="../layouts/footer.cfm">  
+ <cfinclude  template="#application.appBasePath#layouts/footer.cfm">  
 </body>
 </html>
 </cfoutput>

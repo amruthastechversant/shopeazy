@@ -1,14 +1,13 @@
 <cfscript>
- if (structKeyExists(session, "adminid") and len(session.adminid) > 0) {
-        variables.adminid = session.adminid;
+ if (structKeyExists(session, "id") and len(session.id) > 0) {
+        variables.adminid = session.id;
+    
     }
 variables.categoryqryResult=getCategoryqry();
-
 variables.qryGetProductProperties= getProductProperties();
 variables.qrygetProductStatus = getProductStatus();
 if(structKeyExists(url, "id")){
     productId=url.id;
-  
     qryGetProduct=queryExecute(
         "select * from tbl_products where int_product_id=?",
         [{value=productId,cfsqltype="cf_sql_integer"}],
@@ -56,7 +55,7 @@ if(structKeyExists(form,"addProduct")){
         productDescription = form.productDescription,
         productStock = form.productStock,
         category_id = form.category_id,
-        status_id = form.status_id,
+        // status_id = form.status_id,
         properties=[]
        }; 
         for(i=1;i<=variables.qryGetProductProperties.recordCount;i++){
@@ -91,9 +90,15 @@ function getCategoryqry(){
 }
 
 function addProduct(productData){
+    try{
+    var createdBy=0;
+    if(structKeyExists(session, "id")&& (session.id) > 0){
+        createdBy=session.id;
+    }
+    
     var statusData =  getProductStatus(status="inactive");
         addProductqry=queryExecute(
-            "insert into tbl_products(str_name,str_description,int_price,int_stock_quantity,int_category_id,created_at,updated_at,int_product_status)values(?,?,?,?,?,?,?,?)",
+            "insert into tbl_products(str_name,str_description,int_price,int_stock_quantity,int_category_id,created_at,updated_at,int_product_status,created_by)values(?,?,?,?,?,?,?,?,?)",
             [
                 {value=productData.productName,cfsqltype="cf_sql_varchar"},
                 {value=productData.productDescription,cfsqltype="cf_sql_varchar"},
@@ -102,8 +107,8 @@ function addProduct(productData){
                 {value=productData.category_id,cfsqltype="cf_sql_integer"},
                 {value=now(),cfsqltype="cf_sql_timestamp"},
                 {value=now(),cfsqltype="cf_sql_timestamp"},
-                {value=statusData.id,cfsqltype="cf_sql_integer"}
-                
+                {value=statusData.id,cfsqltype="cf_sql_integer"},
+                {value= createdBy,cfsqltype="cf_sql_integer"}
             ],
             {datasource=application.datasource}
             );
@@ -122,9 +127,14 @@ function addProduct(productData){
                  ],
                  {datasource=application.datasource}
                 );
+        
+    
+    addProductVarients(qryGetProductId.productId);
+    location(url="fullProducts.cfm");
         }
-addProductVarients(qryGetProductId.productId);
-location(url="fullProducts.cfm");
+    } catch (any e){
+        writeOutput("can't insert.error:" & e.message);
+    }
 }
 
 function updateProductData(productId,productData ){

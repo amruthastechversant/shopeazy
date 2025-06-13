@@ -1,6 +1,6 @@
 <cfscript>
-    if(structKeyExists(session, "userID") and session.userId GT 0){
-        userId=session.userId
+    if(structKeyExists(session, "id") and session.id GT 0){
+        userId=session.id
     }
   /*  cartInfo=queryExecute(
         "select int_cart_id,int_user_id from tbl_cart where int_user_id=?",

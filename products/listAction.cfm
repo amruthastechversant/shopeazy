@@ -1,15 +1,14 @@
 <cfscript>
-    if (structKeyExists(session, "userid") and len(session.userid) > 0) {
-        variables.userId = session.userid;
+    if (structKeyExists(session, "id") and len(session.id) > 0) {
+        variables.userId = session.id;
     }
 
     variables.qryProductsResult=getAllProducts();
-
     variables.qryProducts=variables.qryProductsResult.products;
     session.itemAdded = false;
     // writeDump(getProductId());abort;
     if (structKeyExists(form, "addToCart_DB")){
-        userId=session.userid;
+        userId=session.id;
         cartId=0;
         variables.qryGetCartDetails = getCartDetails();
     //    writeDump(variables.qryGetCartDetails );abort;
@@ -157,9 +156,3 @@ function addProductItemsToCart(){
 }
 </cfscript>
 
-<!--- <cfif session.itemAdded> 
-    <script type="text/javascript">
-        alert("Item added successfully!");
-    </script>
-    <cfset session.itemAdded = false>
-</cfif>--->

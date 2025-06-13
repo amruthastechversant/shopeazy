@@ -10,6 +10,5 @@
         <li><a href="">Orders</a></li>
         <li><a href="#application.appBasePath#admin/products/fullProducts.cfm">Products</a></li>
       </ul>
-    </div>
-
+</div>
 </cfoutput>

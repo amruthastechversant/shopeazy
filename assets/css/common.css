@@ -1,20 +1,40 @@
+:root{
+	--violet:#211C59;
+	--white:#ffffff;
+	--black:#00000033;
+	--green:#45a049;
+	--greenish:#2a9d8f;
+	--darkgreen:#1e7a61;
+	--orange:#f39c12;
+	--blue:#0056b3;
+	--transparent-black:#0000001A;
+	--grey:#555;
+	---mediumgrey:#666;
+	--skyblue:#4343DD;
+	--darkgrey:#333;
+
+}
 body{
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 body, html {
-	height: 100%;
 	font-family: Arial, sans-serif;
 	overflow: scroll;
+	background-color: var(--white);
+    color: var(--darkgrey);
+	height: 100%;
+
 }
+.rounded-logo{border-radius: 50%;}
 .header {
 	position: relative;
 	top: 0;
 	left: 0;
 	width: 100%;
-	background-color:rgb(33 28 89);
-	color: white;
+	background-color:var(--violet);
+	color: var(--white);
 	padding: 15px;
 	text-align: center;
 	display: flex;
@@ -35,8 +55,8 @@ input.form-control{width: 500px;}
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	background-color:rgb(33 28 89);
-	color: white;
+	background-color:var(--violet);
+	color:var(--white);
 	padding: 15px;
 	text-align: center;
 	height: 80px;
@@ -46,10 +66,10 @@ input.form-control{width: 500px;}
 	height: calc(100% - 120px); 
 	overflow-y: auto;
 }
-.dropdown-content a:hover {
+.navbar-content a:hover {
 	background-color: #ddd;
 }
-.dropdown-content {
+.navbar-content {
 	display: none;
 	position: absolute;
 	background-color: #f9f9f9;
@@ -57,7 +77,7 @@ input.form-control{width: 500px;}
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	z-index: 1;
 }
-.dropdown-content a {
+.navbar-content a {
 	float: none;
 	color: black;
 	padding: 12px 16px;
@@ -66,7 +86,7 @@ input.form-control{width: 500px;}
 	text-align: left;
 	z-index: 1;
 }	
-.dropdown{overflow: visible;position: absolute;float:left;}
+/* .dropdown{overflow: visible;position: absolute;float:left;} */
 .dropdown .dropbtn {
 	font-size: 16px;  
 	border: none;
@@ -77,29 +97,29 @@ input.form-control{width: 500px;}
 	font-family: inherit;
 	margin: 0;
 }
-.dropdown:hover .dropdown-content {
+.dropdown:hover .navbar-content {
 	display: inline-block;
 }    
 
 .dropdown:hover .dropdown-menu{display: inline-block;}
 
-.sub-dropdown {
+.sub-navbar {
     position: relative;
 }
 
-.sub-dropdown-content {
+.sub-navbar-content {
     display: none; /* Hidden by default */
     position: absolute;
     left: 100%; /* Position it next to the "Login" option */
     top: 0;
-    background-color: #f9f9f9;
+    background-color: var(--white);
     min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--black);
     z-index: 1;
 }
 
-/* Show the sub-dropdown when hovering over the "Login" option */
-.sub-dropdown:hover .sub-dropdown-content {
+/* Show the sub-navbar when hovering over the "Login" option */
+.sub-navbar:hover .sub-navbar-content {
     display: block;
 }
 .category{cursor: pointer;}
@@ -110,7 +130,6 @@ input.form-control{width: 500px;}
     width: 100%;
 }
 
-
 .modal {
   
     position: fixed;
@@ -120,17 +139,7 @@ input.form-control{width: 500px;}
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-    background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Adjust width as needed */
-    max-width: 400px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    background-color:var(--black);
 }
 
 .enlarge-on-hover{width: 200px;height: auto; transition: transform 0.3s ease;}
@@ -141,7 +150,7 @@ input.form-control{width: 500px;}
 .a-price-symbol {
 	font-size: 1.5em;  /* Adjust the size of the currency symbol */
 	font-weight: bold;  /* Make the currency symbol bold */
-	color: #333;  /* Set color */
+	color: var(--darkgrey) ; /* Set color */
   }
   
   .a-price-whole {
@@ -158,7 +167,7 @@ input.form-control{width: 500px;}
     border: 1px solid #888;
     width: 80%; 
     max-width: 400px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--black);
 }
 
 
@@ -172,7 +181,7 @@ input.form-control{width: 500px;}
 	width: 100%;
 	height: 100%;
 	overflow: auto;
-	background-color: rgba(0, 0, 0, 0.4); 
+	background-color: var(--black); 
   }
   
   .error-message{color:red;}
@@ -195,7 +204,7 @@ input.form-control{width: 500px;}
   
   .close:hover,
   .close:focus {
-	color: black;
+	color: var(--black);
 	text-decoration: none;
 	cursor: pointer;
   }
@@ -212,18 +221,16 @@ input.form-control{width: 500px;}
 	border-radius: 4px;
   }
   
-  button {
+  .buttonlogin {
 	background-color: #4CAF50;
-	color: white;
+	color: var(--white);
 	padding: 10px 20px;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
   }
   
-  button:hover {
-	background-color: #45a049;
-  }
+  
 	/*modalcss end  */
 
 	/* checkout page css */
@@ -231,10 +238,10 @@ input.form-control{width: 500px;}
 	.checkout-col-12 {
 		width: 100%;
 		max-width: 600px;
-		background-color: white;
+		background-color: var(--white);
 		padding: 5% !important;
 		border-radius: 8px;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 2px 10px var(--transparent-black);
 	}
 
 	.checkout-item {
@@ -252,20 +259,16 @@ input.form-control{width: 500px;}
 		width: 100%;
 		padding: 10px;
 		font-size: 16px;
-		border: 1px solid #ddd;
+		border: var(--white);
 		border-radius: 4px;
 		box-sizing: border-box;
 	}
 	
-	#total-price {
-		font-size: 18px;
-		font-weight: bold;
-		color: #333;
-	}
+	
 	
 	.pay-now-btn {
-		background-color: #4CAF50;
-		color: white;
+		background-color:var(--green);
+		color:var(--white);
 		padding: 15px;
 		font-size: 18px;
 		border: none;
@@ -276,7 +279,7 @@ input.form-control{width: 500px;}
 	}
 	
 	.pay-now-btn:hover {
-		background-color: #45a049;
+		background-color: var(--green);
 	}
 	/* checkout css end */
 
@@ -284,29 +287,14 @@ input.form-control{width: 500px;}
 
 	/* General styling for the order details container */
 	.order-details {
-		background-color: #f9f9f9; /* Light background */
+		background-color: var(--white); /* Light background */
 		padding: 20px;
 		margin-bottom: 20px;
 		border-radius: 8px; /* Rounded corners */
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 4px 8px var(--transparent-black);
 		font-family: Arial, sans-serif;
 	}
 
-	/* Styling for the order heading */
-	.order-details h3 {
-		font-size: 1.5rem;
-		color: #333;
-		margin-bottom: 10px;
-	}
-
-	/* Styling for the order ID paragraph */
-	.order-details p {
-		font-size: 1rem;
-		color: #555;
-		margin-bottom: 10px;
-	}
-
-	/* Styling for the order item container */
 	.order-item {
 		display: flex;
 		flex-wrap: wrap;
@@ -324,7 +312,7 @@ input.form-control{width: 500px;}
 	/* Styling for the product information */
 	.order-item h5 {
 		font-size: 1.2rem;
-		color: #333;
+		color:var(--darkgrey);
 		margin-bottom: 5px;
 	}
 
@@ -332,26 +320,26 @@ input.form-control{width: 500px;}
 	.order-item .a-price-symbol {
 		font-size: 1.2rem;
 		font-weight: bold;
-		color: #2a9d8f; /* Price color */
+		color:var(--greenish); /* Price color */
 	}
 
 	.order-item .a-price-whole {
 		font-size: 1.5rem;
 		font-weight: bold;
-		color: #2a9d8f; /* Price color */
+		color:var(--greenish); /* Price color */
 	}
 
 	/* Styling for the estimated delivery date */
 	.order-item p {
 		font-size: 1rem;
-		color: #666;
+		color: var(---mediumgrey);
 		margin-top: 10px;
 	}
 
 	/* Styling for the track button */
 	.track-button {
-		background-color: #2a9d8f; /* Greenish color */
-		color: white;
+		background-color:var(--greenish); /* Greenish color */
+		color: var(--white);
 		font-size: 1rem;
 		padding: 10px 15px;
 		border: none;
@@ -362,20 +350,16 @@ input.form-control{width: 500px;}
 
 	/* Button hover effect */
 	.track-button:hover {
-		background-color: #1e7a61; /* Darker green on hover */
+		background-color: var(--darkgreen); /* Darker green on hover */
 	}
 
-	/* confirmation page css end */
 
-
-	/* product detail page css */
-	
 .product-detail {
     display: flex;
-    background-color: white;
+    background-color:var(--white);
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--black);
     width: 100%;
     padding: 20px;
 }
@@ -393,76 +377,47 @@ input.form-control{width: 500px;}
 .product-name {
     font-size: 2rem;
     margin: 0;
-    color: #333;
+    color:var(--darkgrey);
 }
 
-.product-description {
-    font-size: 1rem;
-    color: #777;
-    margin-top: 10px;
-    line-height: 1.5;
-}
 
-.detail-item-head{color: rgb(67, 67, 221);}
+.detail-item-head{color: var(--skyblue)}
 
 .product-rating {
     margin-top: 10px;
     font-size: 1.2rem;
-    color: #f39c12;
+    color:var(--orange);
 }
 
 .star {
     font-size: 1.5rem;
-    color: #ddd;
+    color:var(--white);
 }
 
 .star.rated {
-    color: #f39c12;
+    color: var(--orange);
 }
 
 .rating-text {
     font-size: 1rem;
-    color: #555;
+    color: var(--grey);
     margin-left: 10px;
 }
 
 
-/* Style for the color swatches */
-.color-swatches {
-    display: flex;
-    gap: 10px;
-    margin: 10px;
-}
 
-/* Style for individual color circles */
-.color-circle {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid #ccc;
-    transition: transform 0.3s ease;
-}
 
-.color-circle:hover {
-    transform: scale(1.1);
-}
-
-/* Optional: Add a selected class if you'd like to highlight the chosen color */
-.color-circle.selected {
-    border: 2px solid #000;
-}
 
 .product-price {
     font-size: 1.5rem;
-    color: #e67e22;
+    color: var(--orange);
     font-weight: bold;
     margin-top: 20px;
 }
 
 .add-to-cart {
-    background-color: #e67e22;
-    color: white;
+    background-color: var(--orange);
+    color:var(--white);
     border: none;
     padding: 10px 20px;
     font-size: 1rem;
@@ -472,14 +427,14 @@ input.form-control{width: 500px;}
 }
 
 .add-to-cart:hover {
-    background-color: #d56b1b;
+    background-color:var(--orange);
 }
 	/* end */
 
 /* register form css */
 .registerbtn ,.sellerRegisterbtn{
 	border-radius: 15px;
-	color: #f0eeee;
+	color:var(--white);
 }
 /* end */
 
@@ -488,7 +443,7 @@ input.form-control{width: 500px;}
 .displaycolorcode{
 	display:inline-block;
 	width:20px;height:20px;
-	border:1px solid #000;
+	border:1px solid var(--black);
 	margin-right:5px;
 	}
 /* end */
@@ -504,9 +459,9 @@ input.form-control{width: 500px;}
     }
 
     .card {
-      background-color: white;
+      background-color:var(--white);
       border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 8px var(--transparent-black);
       width: 300px;
       padding: 20px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -514,7 +469,7 @@ input.form-control{width: 500px;}
 
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 16px ;
     }
 
     .card h3 {
@@ -524,12 +479,12 @@ input.form-control{width: 500px;}
 
     .card p {
       margin-bottom: 15px;
-      color: #555;
+      color:var(--grey);
     }
 
    
     .card button:hover {
-      background-color: #0056b3;
+      background-color: var(--blue);
 	}
 
 	 .dashboard-cards {

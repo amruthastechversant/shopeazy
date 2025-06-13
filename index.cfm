@@ -12,9 +12,7 @@
 <cfoutput>
 <cfinclude  template="layouts/header.cfm">
 <body>
-<!--- header div--->
    <cfinclude  template="layouts/navbar.cfm">
-<!---category div --->
 <cfif structKeyExists(session, "email") and session.email NEQ "">
     <p>welcome #session.email#</p>
    

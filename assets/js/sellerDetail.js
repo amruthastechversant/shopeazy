@@ -1,8 +1,23 @@
-
 $(document).ready(function () {
     setTimeout(function () {
         $('.text-success').fadeOut(1000);
     }, 3000);
+    const $chBoxes = $('.dropdown-menu input[type="checkbox"]');
+    let mySelectedListItems = [];
+    function handleCheckbox() {
+        mySelectedListItems = [];
+
+        let mySelectedListItemsText = '';
+
+        $chBoxes.each(function () {
+            if ($(this).is(':checked')) {
+                mySelectedListItems.push($(this).val());
+                mySelectedListItemsText += $(this).val() + ', ';
+            }
+        });
+    }
+
+    $chBoxes.on('change', handleCheckbox);
 });
 
 function approveStatus(id){
@@ -27,6 +42,5 @@ function approveStatus(id){
         error:function(error){
             console.log("error approving seller",error)
         }
-
     });
 }

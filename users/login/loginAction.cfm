@@ -46,7 +46,7 @@
             </cfquery>
         
         <cfif qryUser.recordCount>
-            <cfset session.adminid = qryUser.int_user_id>
+            <cfset session.id = qryUser.int_user_id>
             <cfset session.isLoggedIn = true>
             <cfset session.role = qryUser.str_user_role>
             <cfset session.email = qryUser.str_email>
@@ -80,7 +80,7 @@
             </cfquery>
         
         <cfif qryUser.recordCount>
-            <cfset session.userid = qryUser.int_user_id>
+            <cfset session.id = qryUser.int_user_id>
             <cfset session.isLoggedIn=true>
             <cfset session.role = qryUser.str_user_role>
             <cfset session.email = qryUser.str_email>
@@ -122,10 +122,11 @@
             </cfquery>
         
         <cfif qryUser.recordCount>
-            <cfset session.sellerid = qryUser.int_seller_id>
+            <cfset session.id = qryUser.int_seller_id>
             <cfset session.isLoggedIn=true>
             <cfset session.role = qryUser.str_user_role>
             <cfset session.email = qryUser.str_email>
+            <cfset session.name = qryUser.str_first_name>
             <cfset var response = {
                     "status" = "success",
                     "redirect_url" = "#application.appBasePath#users/login/seller/sellerHomePage.cfm"

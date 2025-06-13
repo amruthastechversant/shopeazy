@@ -1,6 +1,4 @@
-
 function changestatus(id){
-    
     const checkbox = $('#status_'+id);
     const isChecked = checkbox.is(":checked");
     const status = isChecked ? "active" : "inactive";

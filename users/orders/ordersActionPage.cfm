@@ -1,5 +1,5 @@
 <cfscript>
- if (structKeyExists(session, "userid") and len(session.userid) > 0){
+ if (structKeyExists(session, "id") and len(session.id) > 0){
    finalorders = queryExecute(
     "SELECT i.int_order_id, i.int_product_id, i.int_price, i.int_quantity,
             p.str_name, pi.image_path
@@ -9,7 +9,7 @@
      JOIN tbl_orders AS o ON o.int_order_id = i.int_order_id
      WHERE o.int_user_id = ?
      ORDER BY i.int_order_id",
-    [session.userid],
+    [session.id],
     {datasource = application.datasource}
 );
 

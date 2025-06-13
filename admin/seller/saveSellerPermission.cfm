@@ -1,7 +1,6 @@
 <cfscript>
 param name="form.id" default=1;
 param name="form.int_permission_id_list";
-
 variables.int_seller_id=form.id;
 variables.permissionList=form.int_permission_id_list;
 variables.deletePermission=deletePermissions();

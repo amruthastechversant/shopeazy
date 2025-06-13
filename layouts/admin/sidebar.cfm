@@ -6,7 +6,11 @@
         </a>
     </div>
     <ul class="sidebar-nav">
+        <cfif structKeyExists(session, "role") and session.role EQ "seller">
+            <li><a href="#application.appBasePath#users/login/seller/sellerHomePage.cfm">Dashboard</a></li>
+        <cfelse>
         <li><a href="#application.appBasePath#admin/adminDashboard.cfm">Dashboard</a></li>
+        </cfif>
         <li><a href="">Customers</a></li>
         <li><a href="#application.appBasePath#admin/seller/sellerDetail.cfm">Sellers</a></li>
         <li><a href="#application.appBasePath#admin/products/fullProducts.cfm">Products</a></li>

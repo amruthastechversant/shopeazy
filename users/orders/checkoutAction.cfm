@@ -1,10 +1,10 @@
 <cfscript>
-     if (structKeyExists(session, "userid") and len(session.userid) > 0) {
-        variables.userId = session.userid;
+     if (structKeyExists(session, "id") and len(session.id) > 0) {
+        variables.userId = session.id;
     }
     totalAmount=url.finalTotal;
     if(structKeyExists(form, "confirmOrder")){
-        userId=session.userid;
+        userId=session.id;
         // create order id for existing cartitems
         orderId=insertOrderquery(userId,totalAmount,form.payment_option,form.address);
         orderDate=now();
@@ -55,7 +55,7 @@
         queryExecute(
             "insert into tbl_orders(int_user_id,int_total_amount,int_payment_method,int_order_status,int_payment_status,address,created_at,updated_at)values(?,?,?,?,?,?,?,?)",
             [
-                {value=session.userId,cfsqltype="cf_sql_integer"},
+                {value=session.id,cfsqltype="cf_sql_integer"},
                 {value=totalAmount,cfsqltype="cf_sql_decimal"},
                 {value=form.payment_option,cfsqltype="cf_sql_varchar"},
                 {value=1,cfsqltype="cf_sql_integer"},
