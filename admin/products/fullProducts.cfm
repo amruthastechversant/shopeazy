@@ -1,6 +1,6 @@
 
-<cfif not structKeyExists(session,"id") and (session.id) EQ "">
-    <cflocation  url="#application.appBasePath#admin/adminDashboard.cfm">
+<cfif NOT structKeyExists(session, "isLoggedIn") OR session.isLoggedIn NEQ true>
+    <cflocation  url="#application.appBasePath#index.cfm">
 </cfif>
     <cfinclude  template="#application.appBasePath#admin/products/fullProductsAction.cfm">
     <!DOCTYPE html> 
@@ -17,7 +17,7 @@
                         <cfinclude template="#application.appBasePath#layouts/admin/header.cfm">
                     <div id="errorMessage"></div>
                     <cfoutput>
-                    <button onclick ="window.location.href='#application.appBasePath#admin/products/addProducts.cfm'" class="btn btn-info ms-3 mb-3">ADD PRODUCT</a></button>
+                   <button onclick ="window.location.href='#application.appBasePath#admin/products/addProducts.cfm'" class="btn btn-info ms-3 mb-3">ADD PRODUCT</button>
                     <form class="d-flex justify-content-between align-items-center mb-3" action="#application.appBasePath#admin/products/fullProducts.cfm" method="POST">
                         <input type="search" class="form-control  mr-sm-2 ms-3 me-2" placeholder="Search" aria-label="Search" id="keyword" name="keyword" >
                         <button type="submit"><i class="fas fa-search"></i> </button>

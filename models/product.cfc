@@ -3,7 +3,7 @@ component displayname="ProductComponent"{
 
     public any function getProductDetails(id){
         qryGetProduct = queryExecute(
-    "SELECT p.int_product_id, p.str_name, p.str_description, p.int_price, i.image_path
+    "SELECT p.int_product_id, p.str_name, p.str_description, p.int_price,p.int_stock_quantity,p.rating, i.image_path
      FROM tbl_products AS p
      JOIN tbl_product_image AS i ON p.int_product_id = i.int_product_id
      WHERE p.int_product_status = 1 AND p.int_product_id = ?",

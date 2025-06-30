@@ -36,7 +36,7 @@ body {
 /* Sidebar */
 .sidebar {
   width: 250px;
-  background-color:var(--darkgrey);
+  background-color:#5e5e8a;
   color: var(--white);
   padding: 20px;
 }
@@ -75,7 +75,6 @@ body {
   text-align: center;
   z-index: 1000;
   overflow: visible;
-  height: 120px;
 }
 .logo {
   width: 120px;
@@ -148,7 +147,7 @@ select {
   width: 100%;
   padding: 0.5rem;
   border-radius: 4px;
-  border: 1px solid var(--white);
+  border: 1px solid var(--black);
   font-size: 1rem;
 }
 textarea {
@@ -387,3 +386,17 @@ button.btn:hover {
     padding: 0.5rem 0;
   }
 }
+
+.star {
+  font-size: 30px;
+  color: grey;
+  cursor: pointer;
+}
+.star.one,
+.star.two,
+.star.three,
+.star.four,
+.star.five {
+  color: gold;
+}
+

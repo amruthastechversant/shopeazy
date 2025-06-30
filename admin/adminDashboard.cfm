@@ -1,3 +1,6 @@
+<cfif NOT structKeyExists(session, "isLoggedIn") OR session.isLoggedIn NEQ true>
+    <cflocation url="#application.appBasePath#index.cfm" addtoken="false">
+</cfif>
 <cfoutput>
 <!DOCTYPE html>
 <html lang="en">

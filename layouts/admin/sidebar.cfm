@@ -12,7 +12,9 @@
         <li><a href="#application.appBasePath#admin/adminDashboard.cfm">Dashboard</a></li>
         </cfif>
         <li><a href="">Customers</a></li>
+        <cfif structKeyExists(session, "role") and session.role EQ "admin">
         <li><a href="#application.appBasePath#admin/seller/sellerDetail.cfm">Sellers</a></li>
+        </cfif>
         <li><a href="#application.appBasePath#admin/products/fullProducts.cfm">Products</a></li>
     </ul>
 </div>

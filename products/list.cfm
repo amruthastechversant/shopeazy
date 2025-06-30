@@ -19,7 +19,7 @@
                  <input type="hidden" name="product_id" value="#variables.qryProducts.int_product_id#">
                  <button type="submit" class="btn btn-primary" name="addToCart">Add to cart</button>
               </form>
-               <a href="" class="btn btn-primary mt-3">Buy Now</a>
+               <button class="btn btn-primary w-100" onclick="getTotalPrice()">Buy Now</a>
             </div>
         </div>
         </cfoutput>
@@ -51,6 +51,6 @@
       </nav>
     </div>
     </cfoutput>
-<cfinclude  template="../layouts/footer.cfm">
+<cfinclude  template="#application.appBasePath#layouts/footer.cfm">
 </body>
 </html>

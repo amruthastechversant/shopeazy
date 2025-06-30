@@ -18,26 +18,25 @@
                      </a>
                     <div class="navbar-content">
                         <!-- Login options -->
-                        <a href="#application.appBasePath#users/profile/userProfile.cfm">My Account</a>
+                        <cfif structKeyExists(session, "isLoggedIn") and session.isLoggedIn EQ true>
+                            <cfif structKeyExists(session, "role") and session.role EQ "admin">
+                                <a href="#application.appBasePath#admin/adminDashboard.cfm">My Account</a>
+                            <cfelse>
+                                <a href="#application.appBasePath#users/login/seller/sellerHomePage.cfm">My Account</a>
+                            </cfif>
+                        </cfif>
                         <cfif structKeyExists(session, "email")>
                         <div class="sub-navbar">
                             <a href="">#session.email#</a>
                             <!-- Admin and User options -->
-                            <div class="sub-navbar-content">
-                                <a href="##" id="adminloginbtn">Admin</a>
-                            </div>
                         </div>
                         <cfelse>
-                        <div class="sub-navbar">
-                            <a href="##">Login</a>
-                            <!-- Admin and User options -->
-                            <div class="sub-navbar-content">
-                                <a href="##" id="adminloginbtn">Admin</a>
-                            </div>
-                        </div>
-                        </cfif>
                         <a href="##" id="sellerloginbtn">Seller Account</a>
+                        <a href="##" id="adminloginbtn">Admin</a>
+                        </cfif>
+                        <cfif structKeyExists(session, "isLoggedIn") and session.isLoggedIn EQ true>
                         <a href="#application.appBasePath#logout.cfm" onclick= "return confirm('are you sure to logout?')">Sign Out</a>
+                        </cfif>
                     </div>
                 </div>
             </div>

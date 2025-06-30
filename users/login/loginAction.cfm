@@ -1,3 +1,4 @@
+
 <cfoutput>
     <!--- On login submit  --->
     <cfif structKeyExists(url, "login") AND url.login EQ "true">
@@ -36,7 +37,7 @@
         <cfargument  name="password" type="string" required="true">
     <!---     <cfset hashedPassword = hash(form.adminPassword, 'SHA-256')> --->
             <cfquery name="qryUser" datasource="#application.datasource#">
-                SELECT u.int_user_id,u.str_email, r.str_user_role
+                SELECT u.int_user_id,u.str_first_name,u.str_last_name,u.str_email, r.str_user_role
                 FROM tbl_users AS u
                 INNER JOIN tbl_user_roles AS r
                 ON u.int_role_id = r.id
@@ -50,6 +51,8 @@
             <cfset session.isLoggedIn = true>
             <cfset session.role = qryUser.str_user_role>
             <cfset session.email = qryUser.str_email>
+            <cfset session.name = qryUser.str_first_name>
+            <cfset session.lastname = qryUser.str_last_name>
             <cfset var response = {
                     "status" = "success",
                     "redirect_url" = "#application.appBasePath#admin/adminDashboard.cfm"
@@ -70,7 +73,7 @@
         <cfargument  name="password" type="string" required="true">
     <!---     <cfset hashedPassword = hash(form.adminPassword, 'SHA-256')> --->
             <cfquery name="qryUser" datasource="#application.datasource#">
-                SELECT u.int_user_id,u.str_email, r.str_user_role
+                SELECT u.int_user_id,u.str_first_name,u.str_last_name,u.str_email, r.str_user_role
                 FROM tbl_users AS u
                 INNER JOIN tbl_user_roles AS r
                 ON u.int_role_id = r.id
@@ -84,6 +87,8 @@
             <cfset session.isLoggedIn=true>
             <cfset session.role = qryUser.str_user_role>
             <cfset session.email = qryUser.str_email>
+            <cfset session.name = qryUser.str_first_name>
+             <cfset session.lastname = qryUser.str_last_name>
             <cfset var response = {
                     "status" = "success",
                     "redirect_url" = "#application.appBasePath#index.cfm"
@@ -108,8 +113,10 @@
                     u.int_user_id,
                     u.str_email,
                     u.str_first_name,
+                    u.str_last_name,
                     r.str_user_role,
-                    s.int_seller_id
+                    s.int_seller_id,
+                    s.str_seller_status
                     FROM 
                         tbl_users AS u
                     LEFT JOIN 
@@ -127,6 +134,8 @@
             <cfset session.role = qryUser.str_user_role>
             <cfset session.email = qryUser.str_email>
             <cfset session.name = qryUser.str_first_name>
+             <cfset session.lastname = qryUser.str_last_name>
+            <cfset session.str_seller_status = qryUser.str_seller_status>
             <cfset var response = {
                     "status" = "success",
                     "redirect_url" = "#application.appBasePath#users/login/seller/sellerHomePage.cfm"

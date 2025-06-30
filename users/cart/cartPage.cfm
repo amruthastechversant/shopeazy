@@ -44,6 +44,13 @@
                                                         <span class="a-price-whole" id="price_#item.product_id#" data-unit-price="#item.price_at_time_of_addition/item.quantity#">#item.price_at_time_of_addition#</span>
                                                     </span>
                                                 </div>
+                                                <div>
+                                                    <h5class="cart-title">color:
+                                                    <span style="display:inline-block; width:20px; height:20px; background-color:#item.selected_color#; border:1px solid ##000;"></span>
+                                                    </h5>
+                                                    <h5 class="cart-title">size:#item.selected_size#</h5>
+                                                    <h5 class="cart-title">material:#item.selected_materials#</h5>
+                                                </div>
                                             </div>
                                         </div>   
                                     </div>
@@ -51,8 +58,7 @@
                             </div>
                         </cfloop>
                 </div>
-    <!--- display only when cart have items          --->
-                    <div class="col-md-4"> 
+                <div class="col-md-4"> 
                         <div class="checkout-box">
                             <h3>Checkout</h3>
                             <div class="pricedetails">
@@ -77,7 +83,6 @@
                                 <h4>Final Total: ₹<span id="finalTotal"></span></h4>
                             </div>
                         </div>
-
                         <!-- Proceed to Buy Button -->
                         <div class="row mt-4">
                             <div class="col-12">
@@ -92,41 +97,7 @@
         </div>
     </div>
 </cfoutput>
-<!--- "window.location.href='#application.appBasePath#users/orders/checkout.cfm'" --->
-        <!-- Checkout Section -->
-       
-<!--- <h2>Your Cart</h2> 
 
-<cfif cartItems.recordCount GT 0>
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Product Name</th>
-                <th>Price at Time of Add</th>
-                <th>Quantity</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            <cfoutput query="cartItems">
-                <tr>
-                    <td>#str_name#</td>
-                    <td>#price_at_time_of_addition#</td>
-                    <td>#int_quantity#</td>
-                    <td>#price_at_time_of_addition * int_quantity#</td>
-                    <td>
-                        <form action="cartPage.cfm" method="POST">
-                            <input type="hidden" name="deleteItemId" value="#int_cart_item_id#">
-                            <button type="submit" class="btn btn-danger">DELETE</button>
-                        </form>
-                    </td>
-                </tr>
-            </cfoutput>
-        </tbody>
-    </table>
-<cfelse>
-    <p>Your cart is empty.</p>
-</cfif>--->
 
 <cfinclude  template="../../layouts/footer.cfm">
 </body>

@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <cfoutput>
-<cfinclude  template="../../../layouts/header.cfm">
+<cfinclude  template="#application.appBasePath#layouts/header.cfm">
 <cfinclude  template="registerAction.cfm">
 <body>
 <!--- header div--->
-   <cfinclude  template="../../../layouts/navbar.cfm">
+   <cfinclude  template="#application.appBasePath#/layouts/navbar.cfm">
     <div class="row pt-5 pb-5">
         <div class="col-2"></div>
             <div class="col-8 checkout-col-12">

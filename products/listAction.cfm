@@ -28,7 +28,7 @@
         session.cart = [];
     }
     if(structKeyExists(form, "addToCart")){ 
-
+        // writeDump(form);abort;
         qryGetProduct = queryExecute(
             "select p.int_product_id,p.str_name,p.int_price,p.int_stock_quantity,pI.image_path from tbl_products as p join tbl_product_image as pI
             on p.int_product_id = pI.int_product_id where p.int_product_id=?",
@@ -53,12 +53,16 @@
                 str_name=qryGetProduct.str_name,
                 price_at_time_of_addition=qryGetProduct.int_price,
                 quantity=1,
-                image_path = qryGetProduct.image_path
+                image_path = qryGetProduct.image_path,
+                selected_color = structKeyExists(form, "selected_color") ? form.selected_color : "",
+                selected_size = structKeyExists(form, "selected_size") ? form.selected_size : "",
+                selected_materials = structKeyExists(form, "selected_materials") ? form.selected_materials : ""
+
             };
 
             arrayAppend(session.cart,variables.product);
             }
-            // writeDump(variables.product);abort;
+            // writeDump(session.cart);abort;
         session.itemAdded = true;
      location(url="#application.appBasePath#users/cart/cartPage.cfm?status=added", addtoken=false);
        
@@ -75,7 +79,8 @@
 function getAllProducts(){
     param name="url.page",default=1;
     param name="form.keyword" default="%%"; // Ensure 'url.keyword' exists
-
+    param name="url.category_id",default=1;
+    category_id=url.category_id;
     perPage=3;
     offset=(url.page - 1)*perPage;  
      
@@ -97,12 +102,15 @@ function getAllProducts(){
     variables.totalPages = ceiling(totalRecords/perPage);
    
     products=queryExecute(
-        "select p.int_product_id,p.str_name,p.int_price,i.image_path from tbl_products  as p join tbl_product_image as i on 
-        p.int_product_id=i.int_product_id where p.int_product_status=1 and p.str_name LIKE :keyword  LIMIT :limit OFFSET :offset",
+        "select p.int_product_id,p.str_name,p.int_price,p.int_category_id,i.image_path from tbl_products  as p join tbl_product_image as i on 
+        p.int_product_id=i.int_product_id
+        where p.int_product_status=1 and p.str_name LIKE :keyword 
+        and p.int_category_id =:category_id LIMIT :limit OFFSET :offset",
         [
             KEYWORD:{value:keyword,name:keyword,cfsqltype="cf_sql_varchar"},
-           LIMIT:{value:perPage,cfsqltype="cf_sql_integer"},
-           OFFSET:{value:offset,cfsqltype="cf_sql_integer"}
+            category_id:{value:category_id,cfsqltype="cf_sql_integer"},
+            LIMIT:{value:perPage,cfsqltype="cf_sql_integer"},
+            OFFSET:{value:offset,cfsqltype="cf_sql_integer"}
         ],
         {datasource=application.datasource}
     )

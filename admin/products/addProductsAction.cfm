@@ -55,9 +55,13 @@ if(structKeyExists(form,"addProduct")){
         productDescription = form.productDescription,
         productStock = form.productStock,
         category_id = form.category_id,
+        rating=form.rating,
         // status_id = form.status_id,
         properties=[]
        }; 
+       if(structKeyExists(form, "id")){
+           variables.product.status_id= form.int_product_status;
+       }
         for(i=1;i<=variables.qryGetProductProperties.recordCount;i++){
         propertyName=variables.qryGetProductProperties["str_properties"][i];//size,color,materials
         propertyId=variables.qryGetProductProperties["id"][i];//1,2,3
@@ -98,7 +102,7 @@ function addProduct(productData){
     
     var statusData =  getProductStatus(status="inactive");
         addProductqry=queryExecute(
-            "insert into tbl_products(str_name,str_description,int_price,int_stock_quantity,int_category_id,created_at,updated_at,int_product_status,created_by)values(?,?,?,?,?,?,?,?,?)",
+            "insert into tbl_products(str_name,str_description,int_price,int_stock_quantity,int_category_id,created_at,updated_at,int_product_status,rating,created_by)values(?,?,?,?,?,?,?,?,?,?)",
             [
                 {value=productData.productName,cfsqltype="cf_sql_varchar"},
                 {value=productData.productDescription,cfsqltype="cf_sql_varchar"},
@@ -108,6 +112,7 @@ function addProduct(productData){
                 {value=now(),cfsqltype="cf_sql_timestamp"},
                 {value=now(),cfsqltype="cf_sql_timestamp"},
                 {value=statusData.id,cfsqltype="cf_sql_integer"},
+                {value=rating,cfsqltype="cf_sql_integer"},
                 {value= createdBy,cfsqltype="cf_sql_integer"}
             ],
             {datasource=application.datasource}
@@ -139,7 +144,7 @@ function addProduct(productData){
 
 function updateProductData(productId,productData ){
     qryUpdateData=queryExecute(
-        "update tbl_products set str_name = ?,str_description = ?,int_price = ?,int_stock_quantity=?,int_category_id = ?,created_at = ?,updated_at = ?,int_product_status =?
+        "update tbl_products set str_name = ?,str_description = ?,int_price = ?,int_stock_quantity=?,int_category_id = ?,created_at = ?,updated_at = ?,int_product_status =?,rating=?
            where int_product_id=?",
             [
                 {value=productData.productName,cf_sql_type="cf_sql_varchar"},
@@ -150,6 +155,7 @@ function updateProductData(productId,productData ){
                 {value=now(),cfsqltype="cf_sql_timestamp"},
                 {value=now(),cfsqltype="cf_sql_timestamp"},
                 {value=productData.status_id,cfsqltype="cf_sql_integer"},
+                {value=productData.rating,cfsqltype="cf_sql_integer"},
                 {value=productId}
             ],
             {datasource=application.datasource}

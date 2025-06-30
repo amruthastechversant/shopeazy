@@ -23,7 +23,7 @@ offset=(url.page - 1)*perPage;
     products=queryExecute(
         "select p.int_product_id,p.str_name,p.str_description,p.int_price,p.int_product_status,s.status from tbl_products as p join tbl_product_status as  s
         on p.int_product_status = s.status 
-        where str_name LIKE :keyword order by (s.status = 'inactive') desc  LIMIT :limit OFFSET :offset ",
+        where str_name LIKE :keyword order by int_product_id desc  LIMIT :limit OFFSET :offset ",
         [
         KEYWORD:{value:keyword,name:keyword,cfsqltype="cf_sql_varchar"},
         LIMIT:{value:perPage,cfsqltype="cf_sql_integer"},
@@ -103,8 +103,10 @@ offset=(url.page - 1)*perPage;
         "SELECT COUNT(*) as totalcount FROM tbl_products p 
         JOIN tbl_product_image i ON p.int_product_id = i.int_product_id 
         WHERE p.int_product_status = 1
+        AND  p.created_by=:createdby
         AND p.str_name LIKE :keyword",
         [
+            createdby:{value:variables.id,cfsqltype="cf_sql_integer"},
             KEYWORD:{name="keyword", value=keyword, cfsqltype="cf_sql_varchar"}
         ], 
         {datasource=application.datasource}

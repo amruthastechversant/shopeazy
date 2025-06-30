@@ -1,4 +1,4 @@
-    // Wait 5 seconds, then hide the alert
+   // Wait 5 seconds, then hide the alert
     document.addEventListener("DOMContentLoaded", function() {
             setTimeout(function() {
                 var alertBoxes = document.getElementsByClassName('success-alert');
@@ -9,7 +9,17 @@
                 }
             }, 3000);
         });
-updateButtons();
+
+$(document).ready(function () {    
+    updateButtons();
+    star = $('.star');
+    output = $('#output');
+
+    const existingRating = parseInt($("#rating").val());//parseint convert to integer 
+    if (existingRating > 0 && existingRating <= 5) {
+        rev(existingRating);
+    }
+ });
 
 function getContainer(type) {
     let containerId='';
@@ -45,8 +55,8 @@ function toggleOptions(btn, type) {
     container.appendChild(newDiv);
 }
 
-
 function updateButtons(){
+    if (typeof productProperties === 'object' && productProperties !== null && Array.isArray(productProperties.DATA)) {
     const prevProps=productProperties.DATA;
     prevProps.forEach((prop)=>{
         let containerId=getContainer(prop[1]);
@@ -67,3 +77,36 @@ function updateButtons(){
         }
     });
 }
+}
+
+let selectedRating=0;
+let star, output;
+    function rev(n){
+        selectedRating=n;
+        remove();
+        let cls = "";
+        if(n === 1)
+            cls = "one";
+        else if(n === 2)
+            cls = "two";
+        else if(n === 3)
+            cls = "three";
+        else if(n === 4)
+            cls = "four";
+        else if(n === 5)
+            cls = "five";
+
+        star.each(function(index) {
+            if (index < n) {
+                $(this).attr("class", "star " + cls);
+            }
+        });
+
+        output.text("rating is: " + n + "/5");
+        $("#rating").val(n);
+    }
+
+    function remove(){
+        star.attr("class", "star");
+    }
+

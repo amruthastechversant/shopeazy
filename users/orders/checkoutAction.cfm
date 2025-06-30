@@ -78,12 +78,15 @@
 
     function addOrderItems(orderID,Item){
        addOrderItemsqry= queryExecute(
-            "insert into tbl_order_items(int_order_id,int_product_id,int_price,int_quantity) values(?,?,?,?)",
+            "insert into tbl_order_items(int_order_id,int_product_id,int_price,int_quantity,product_color,product_size,product_material) values(?,?,?,?,?,?,?)",
             [
                 {value=orderID,cfsqltype="cf_sql_integer"},
                 {value=Item.product_id,cfsqltype="cf_sql_integer"},
                 {value=Item.price_at_time_of_addition,cfsqltype="cf_sql_decimal"},
-                {value=Item.quantity,cfsqltype="cf_sql_integer"}
+                {value=Item.quantity,cfsqltype="cf_sql_integer"},
+                {value=Item.selected_color,cfsqltype="cf_sql_varchar"},
+                {value=Item.selected_size,cfsqltype="cf_sql_varchar"},
+                {value=Item.selected_materials,cfsqltype="cf_sql_varchar"}
             
             ],
             {datasource=application.datasource}

@@ -22,8 +22,12 @@ $(document).ready(function () {
 
 function approveStatus(id){
     var selleridvalue = $('#seller_' +id).val();
+    var button = $('#toggle_' +id);
+    var isApproved = button.hasClass("btn-success");
+    var action = isApproved ? 'approve': 'deactivate';
+    var url = '/myprojects/shopeazy/admin/seller/approveSeller.cfm?'+action+ "=true";
     $.ajax({
-        url:'/myprojects/shopeazy/admin/seller/approveSeller.cfm?approve=true',
+        url:url,
         type:'POST',
         data:{
             id:selleridvalue
@@ -31,13 +35,39 @@ function approveStatus(id){
         success:function(response){
             var jsonResponse = JSON.parse(response)
             if((jsonResponse.STATUS===true)){
-                $("#approve_" +id).removeClass("btn-success");
-                $("#approve_"+id).addClass("btn-danger");
-                $("#approve_" +id).html('Deactivate');
+                if(action === 'approve'){
+                    button.removeClass("btn-success").addClass('btn-danger').html('deactivate');
+                }
+                else{
+                    button.removeClass('btn-danger').addClass("btn-success").html('approve');
+                }
                 $('#successMessage').text(jsonResponse.MESSAGE).show();
-                
             }
             console.log("seller approved",jsonResponse)
+        },
+        error:function(error){
+            console.log("error approving seller",error)
+        }
+    });
+}
+
+function rejectStatus(id){
+    var selleridvalue=$("#seller_" +id).val();
+    var url='/myprojects/shopeazy/admin/seller/approveSeller.cfm?reject=true'
+    $.ajax({
+        url:url,
+        type:'POST',
+        data:{
+            id:selleridvalue
+        },
+        success:function(response){
+            var jsonResponse = JSON.parse(response)
+            if((jsonResponse.STATUS===true)){
+                $('#successMessage').text(jsonResponse.MESSAGE).show();
+                $("#toggle_" +id).prop('disabled',true);
+                $("#reject_" +id).prop('disabled',true)
+            }
+            console.log("seller rejected",jsonResponse)
         },
         error:function(error){
             console.log("error approving seller",error)

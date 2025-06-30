@@ -1,3 +1,7 @@
+<cfif NOT structKeyExists(session, "isLoggedIn") OR session.isLoggedIn NEQ true or 
+not structKeyExists(session, "role") or session.role NEQ "admin">
+    <cflocation  url="#application.appBasePath#index.cfm" addtoken="false">
+</cfif>
 <cfinclude template="sellerDetailAction.cfm">
 <cfoutput>
 <!DOCTYPE html> 
@@ -22,6 +26,7 @@
                         <th>Product Category</th>
                         <th>Permissions</th>
                         <th>Seller Status</th>
+                        <th>Action</th>
                     </thead>
                     <tbody>
                     </cfoutput>
@@ -66,12 +71,16 @@
                                         </ul>
                                     </div>
                                 </td>
+                                <td>#variables.sellerDetails.str_seller_status#</td>
                                 <td>
-                                    <input type="hidden" name="id" value="#int_user_id#" id="seller_#int_seller_id#">
+                                    <input type="hidden" name="id" value="#int_seller_id#" id="seller_#int_seller_id#">
                                     <cfif str_seller_status EQ 'pending'>
-                                        <button type="button" class="btn btn-sm btn-success" id="approve_#int_seller_id#" onclick="approveStatus(#int_seller_id#)">Approve</button>
+                                    <button type="button" class="btn btn-sm btn-success" id="toggle_#int_seller_id#" onclick="approveStatus(#int_seller_id#)">Approve</button>
+                                    <button type="button" class="btn btn-sm btn-danger" id="toggle_#int_seller_id#" onclick="rejectStatus(#int_seller_id#)">Reject</button>
+                                    <cfelseif str_seller_status EQ 'approved'> 
+                                    <button type="button" class="btn btn-sm btn-danger" id="toggle_#int_seller_id#" onclick="approveStatus(#int_seller_id#)">Deactivate</button>
                                     <cfelse>
-                                        <button type="submit" class="btn btn-sm btn-danger">Deactivate</button>
+                                    <button type="button" class="btn btn-sm btn-success" id="toggle_#int_seller_id#" onclick="approveStatus(#int_seller_id#)">Active</button>
                                     </cfif>
                                 </td>
                             </tr>
