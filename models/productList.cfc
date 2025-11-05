@@ -1,16 +1,16 @@
 component displayname="productListcomponent"{
     
 public any function getAllProducts(){
-param name="url.page",default=1;
-param name="form.keyword" default="%%"; // Ensure 'url.keyword' exists
-perPage=5;
-offset=(url.page - 1)*perPage; 
+    param name="url.page",default=1;
+    param name="form.keyword" default="%%"; // Ensure 'url.keyword' exists
+    perPage=5;
+    offset=(url.page - 1)*perPage; 
 
     var products = QueryNew('');
     var qryTotal =  QueryNew('');
     var keyword = "%" & trim(form.keyword) & "%"
     var qryTotal = queryExecute(
-        "select count(*) as totalCount from tbl_products
+        "select count(int_product_id) as totalCount from tbl_products
         where str_name LIKE :keyword",
         [
             keyword:{value:keyword,name:keyword,cfsqltype="cf_sql_varchar"}
@@ -34,11 +34,11 @@ offset=(url.page - 1)*perPage;
     return{products=products,totalRecords=totalRecords,totalPages=variables.totalPages};
 }
 
- public any function getSellerDetails(){
-param name="url.page",default=1;
-param name="form.keyword" default="%%"; // Ensure 'url.keyword' exists
-perPage=5;
-offset=(url.page - 1)*perPage; 
+public any function getSellerDetails(){
+    param name="url.page",default=1;
+    param name="form.keyword" default="%%"; // Ensure 'url.keyword' exists
+    perPage=5;
+    offset=(url.page - 1)*perPage; 
 
     var sellers = QueryNew('');
     var qryTotal =  QueryNew('');
@@ -57,37 +57,37 @@ offset=(url.page - 1)*perPage;
 
     var totalRecords = qryTotal.totalcount;
     variables.totalPages = ceiling(totalRecords/perPage);
-        qryGetSellerDetails  = queryExecute(
-            "SELECT  
-                s.int_seller_id,
-                s.int_user_id,
-                s.int_gst_no,
-                s.int_lisence_no,
-                s.int_product_category,
-                s.str_seller_status,
-                u.str_first_name,
-                u.str_email,
-                u.str_address,
-                u.int_role_id,
-                c.str_category_name,
-                c.int_category_id
-            FROM tbl_seller_info AS s  
-            LEFT JOIN tbl_users AS u 
-                ON s.int_user_id = u.int_user_id 
-            LEFT JOIN tbl_categories AS c
-                ON s.int_product_category = c.int_category_id
-            where str_first_name LIKE :keyword order by (s.str_seller_status = 'pending') asc  LIMIT :limit OFFSET :offset ",
-            [
-            KEYWORD:{value:keyword,name:keyword,cfsqltype="cf_sql_varchar"},
-            LIMIT:{value:perPage,cfsqltype="cf_sql_integer"},
-            OFFSET:{value:offset,cfsqltype="cf_sql_integer"}
-            ],
-             {datasource=application.datasource}
-        );
-        return{qryGetSellerDetails=qryGetSellerDetails,totalRecords=totalRecords,totalPages=variables.totalPages};
-    }
+    qryGetSellerDetails  = queryExecute(
+        "SELECT  
+            s.int_seller_id,
+            s.int_user_id,
+            s.int_gst_no,
+            s.int_lisence_no,
+            s.int_product_category,
+            s.str_seller_status,
+            u.str_first_name,
+            u.str_email,
+            u.str_address,
+            u.int_role_id,
+            c.str_category_name,
+            c.int_category_id
+        FROM tbl_seller_info AS s  
+        LEFT JOIN tbl_users AS u 
+            ON s.int_user_id = u.int_user_id 
+        LEFT JOIN tbl_categories AS c
+            ON s.int_product_category = c.int_category_id
+        where str_first_name LIKE :keyword order by (s.str_seller_status = 'pending') asc  LIMIT :limit OFFSET :offset ",
+        [
+        KEYWORD:{value:keyword,name:keyword,cfsqltype="cf_sql_varchar"},
+        LIMIT:{value:perPage,cfsqltype="cf_sql_integer"},
+        OFFSET:{value:offset,cfsqltype="cf_sql_integer"}
+        ],
+            {datasource=application.datasource}
+    );
+    return{qryGetSellerDetails=qryGetSellerDetails,totalRecords=totalRecords,totalPages=variables.totalPages};
+}
 
-    public any function getSellerProducts(){
+public any function getSellerProducts(){
     param name="url.page",default=1;
     param name="form.keyword" default="%%"; // Ensure 'url.keyword' exists
     perPage=3;
@@ -100,7 +100,7 @@ offset=(url.page - 1)*perPage;
     var qryTotal=queryNew('');
     var keyword = "%" & trim(form.keyword) & "%";
     var qryTotal = queryExecute(
-        "SELECT COUNT(*) as totalcount FROM tbl_products p 
+        "SELECT COUNT(p.int_product_id) as totalcount FROM tbl_products p 
         JOIN tbl_product_image i ON p.int_product_id = i.int_product_id 
         WHERE p.int_product_status = 1
         AND  p.created_by=:createdby

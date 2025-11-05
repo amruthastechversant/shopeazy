@@ -354,6 +354,20 @@ input.form-control{width: 500px;}
 	.track-button:hover {
 		background-color: var(--darkgreen); /* Darker green on hover */
 	}
+	.confirmDelivery{
+		background-color:var(--violet); /* Greenish color */
+		color: var(--white);
+		font-size: 1rem;
+		padding: 10px 15px;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+	.confirmDelivery{
+		background-color: var(--darkgreen);
+	}
+	
 
 
 .product-detail {
@@ -405,7 +419,18 @@ input.form-control{width: 500px;}
     color: var(--grey);
     margin-left: 10px;
 }
-
+.star {
+  font-size: 30px;
+  color: grey;
+  cursor: pointer;
+}
+.star.one,
+.star.two,
+.star.three,
+.star.four,
+.star.five {
+  color: gold;
+}
 
 
 

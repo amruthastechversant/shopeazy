@@ -14,22 +14,21 @@
             <p class="product-price">#variables.result.int_price#</p>
             <p class="detail-item-head">Description :</p>
             <p class="product-description text-dark">
-              # variables.result.str_description#</p>
+              #variables.result.str_description#</p>
             <cfset rating = variables.result.rating>
             <cfset maxRating = 5>
             <p class="detail-item-head">Rating:
                 <div class="product-rating">
                     <cfloop from="1" to="#maxRating#" index="i">
                         <cfif i LTE rating>
-                            <span class="star rated">★</span>
+                            <span class="star rated">*</span>
                         <cfelse>
-                            <span class="star">★</span>
+                            <span class="star">*</span>
                         </cfif>
                     </cfloop>
                     <span class="rating-text">(#rating#/#maxRating#)</span>
                 </div>
             </p>
-
         </cfoutput>
         <form action="listAction.cfm" method="POST">
             <cfoutput query = "variables.variants" group="str_properties">
@@ -65,7 +64,6 @@
             <input type="hidden" name="product_id" value="#variables.result.int_product_id#">
             <button class="add-to-cart"  type="submit" name="addToCart" >Add to Cart</button>
             </form>
-<!---             <button class="btn  btn-info">In stock</button> --->
              <button class="btn btn-primary w-100" type="submit" onclick="getTotalPrice()">Buy Now</button>
         </div>
     </div>

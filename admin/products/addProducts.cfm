@@ -22,7 +22,7 @@
                 <h2 class="text-center">
                     <cfif structKeyExists(url,"id")>EDIT<cfelse>ADD</cfif> PRODUCT FORM
                 </h2>
-                <form  action="addProductsAction.cfm" method="POST" enctype="multipart/form-data">
+                <form  action="" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="#(structKeyExists(variables, 'editProduct') ? variables.editProduct.int_product_id: '')#"/>
                     <input type="hidden" name="int_product_status" value="#(structKeyExists(variables, 'editProduct') ? variables.editProduct.int_product_status: '')#"/>
                     <cfif structKeyExists(url,"updated") && url.updated ==true>
@@ -67,21 +67,6 @@
                         <td>
                             <input type="number" class="form-control" id="productStock" name="productStock"
                             value="#(structKeyExists(variables, 'editProduct') ? variables.editProduct.int_stock_quantity: '')#"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="output" class="form-label">Product Rating</label></td>
-                           
-                        <td>
-                            <div class="star-rating" name="output">
-                                <span onclick="rev(1)" class="star">★</span>
-                                <span onclick="rev(2)" class="star">★</span>
-                                <span onclick="rev(3)" class="star">★</span>
-                                <span onclick="rev(4)" class="star">★</span>
-                                <span onclick="rev(5)" class="star">★</span>
-                                <h3 id="output">Rating is: 0/5</h3>
-                                <input type="hidden" name="rating" id="rating" value="#(structKeyExists(variables, 'editProduct') ? variables.editProduct.rating: '')#"/>
-                            </div>
                         </td>
                     </tr>
                     <tr>

@@ -1,3 +1,4 @@
+
 <cfscript>
  if (structKeyExists(session, "id") and len(session.id) > 0) {
         variables.adminid = session.id;
@@ -9,7 +10,7 @@ variables.qrygetProductStatus = getProductStatus();
 if(structKeyExists(url, "id")){
     productId=url.id;
     qryGetProduct=queryExecute(
-        "select * from tbl_products where int_product_id=?",
+        "select int_product_id,str_name,str_description,int_price,int_stock_quantity,int_category_id,int_product_status from tbl_products where int_product_id=?",
         [{value=productId,cfsqltype="cf_sql_integer"}],
         {datasource=application.datasource}
     )
@@ -44,9 +45,9 @@ if(structKeyExists(form,"addProduct")){
     uploadedFilePath="";
 
     if(isDefined("form.productImage") && len(form.productImage)){
-    uploadDir=expandPath("../../assets/uploads/products/");
+    uploadDir=expandPath("../../uploads/productImages/");
      cffile(action = "upload", fileField = "productImage", destination = uploadDir, accept = "image/*", nameConflict = "MakeUnique", result="uploadResult");
-    uploadedFilePath = 'assets/uploads/products/' &uploadResult.serverFile 
+    uploadedFilePath = 'uploads/productImages/' &uploadResult.serverFile 
     }
     variables.product={
         productName=form.productName,
@@ -55,7 +56,7 @@ if(structKeyExists(form,"addProduct")){
         productDescription = form.productDescription,
         productStock = form.productStock,
         category_id = form.category_id,
-        rating=form.rating,
+        // rating=form.rating,
         // status_id = form.status_id,
         properties=[]
        }; 
@@ -94,7 +95,7 @@ function getCategoryqry(){
 }
 
 function addProduct(productData){
-    try{
+    // try{
     var createdBy=0;
     if(structKeyExists(session, "id")&& (session.id) > 0){
         createdBy=session.id;
@@ -102,17 +103,17 @@ function addProduct(productData){
     
     var statusData =  getProductStatus(status="inactive");
         addProductqry=queryExecute(
-            "insert into tbl_products(str_name,str_description,int_price,int_stock_quantity,int_category_id,created_at,updated_at,int_product_status,rating,created_by)values(?,?,?,?,?,?,?,?,?,?)",
+            "insert into tbl_products(str_name,str_description,int_price,int_stock_quantity,int_category_id,created_at,updated_at,int_product_status,created_by)values(?,?,?,?,?,?,?,?,?)",
             [
                 {value=productData.productName,cfsqltype="cf_sql_varchar"},
                 {value=productData.productDescription,cfsqltype="cf_sql_varchar"},
-                {value=productData.productPrice,cfsqltype="cf_sql_integer"},
+                {value=productData.productPrice,cfsqltype="cf_sql_decimal"},
                 {value=productData.productStock,cfsqltype="cf_sql_integer"},
                 {value=productData.category_id,cfsqltype="cf_sql_integer"},
                 {value=now(),cfsqltype="cf_sql_timestamp"},
                 {value=now(),cfsqltype="cf_sql_timestamp"},
                 {value=statusData.id,cfsqltype="cf_sql_integer"},
-                {value=rating,cfsqltype="cf_sql_integer"},
+                // {value=rating,cfsqltype="cf_sql_integer"},
                 {value= createdBy,cfsqltype="cf_sql_integer"}
             ],
             {datasource=application.datasource}
@@ -137,9 +138,9 @@ function addProduct(productData){
     addProductVarients(qryGetProductId.productId);
     location(url="fullProducts.cfm");
         }
-    } catch (any e){
-        writeOutput("can't insert.error:" & e.message);
-    }
+    // } catch (any e){
+    //     writeOutput("can't insert.error:" & e.message);
+    // }
 }
 
 function updateProductData(productId,productData ){

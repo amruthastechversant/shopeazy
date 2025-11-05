@@ -7,7 +7,7 @@ var sellermodalElement=document.getElementById('sellerloginModal');
 // Get the user link and modal close button
 var userloginBtn = document.getElementById("userloginBtn");
 var adminloginBtn=document.getElementById('adminloginbtn');
-var sellerloginBtn=document.getElementById('sellerloginbtn')
+var sellerloginBtn=document.getElementById('sellerloginbtn');
 var userCloseBtn = document.getElementById('userCloseBtn');
 var adminCloseBtn = document.getElementById('adminCloseBtn');
 var showadminloginModal=false;
@@ -15,15 +15,20 @@ var showuserloginModal =false;
 
 
 // Open modal when user clicks on the "User" link
+if(userloginBtn){
 userloginBtn.onclick = function() {
     modalElement.style.display = "block";
 }
-adminloginBtn.onclick=function(){
+}
+if(adminloginBtn){
+adminloginBtn.onclick = function(){
     adminmodalElement.style.display="block";
 }
-
+}
+if(sellerloginBtn){
 sellerloginBtn.onclick=function(){
     sellermodalElement.style.display="block";
+}
 }
 // Close modal when user clicks the "x" button
 userCloseBtn.onclick = function() {
@@ -38,6 +43,8 @@ sellerCloseBtn.onclick = function(){
     sellermodalElement.style.display = "none";
 }
 
+
+
 // Close modal if the user clicks outside the modal content
 window.onclick = function(event) {
     if (event.target === modalElement) {
@@ -51,6 +58,8 @@ window.onclick = function(event) {
         sellermodalElement.style.display="none";
     }
 
+   
+
 }
 
 
@@ -61,6 +70,7 @@ window.onclick = function(event) {
         } else if (showadminloginModal) {
             adminmodalElement.style.display = "block";  // Show the admin login modal
         }
+      
     });
 
 function showError(message){
@@ -81,6 +91,7 @@ function showErrorUser(message){
     errormessagecontainer.style.display="block";
 
 }
+
 document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
     e.preventDefault();
     var email = document.getElementById('adminEmail').value;

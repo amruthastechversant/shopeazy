@@ -387,16 +387,5 @@ button.btn:hover {
   }
 }
 
-.star {
-  font-size: 30px;
-  color: grey;
-  cursor: pointer;
-}
-.star.one,
-.star.two,
-.star.three,
-.star.four,
-.star.five {
-  color: gold;
-}
+
 

@@ -6,12 +6,10 @@
     variables.qryProductsResult=getAllProducts();
     variables.qryProducts=variables.qryProductsResult.products;
     session.itemAdded = false;
-    // writeDump(getProductId());abort;
     if (structKeyExists(form, "addToCart_DB")){
         userId=session.id;
         cartId=0;
         variables.qryGetCartDetails = getCartDetails();
-    //    writeDump(variables.qryGetCartDetails );abort;
         if(val(variables.qryGetCartDetails) EQ 0){
             cartId = addProductToCart();
         } else {
@@ -89,12 +87,13 @@ function getAllProducts(){
     var qryTotal=queryNew('');
     var keyword = "%" & trim(form.keyword) & "%";
     var qryTotal = queryExecute(
-        "SELECT COUNT(*) as totalcount FROM tbl_products p 
+        "SELECT COUNT(p.int_product_id) as totalcount FROM tbl_products p 
         JOIN tbl_product_image i ON p.int_product_id = i.int_product_id 
-        WHERE p.int_product_status = 1
+        WHERE p.int_product_status = 1 and p.int_category_id =:category_id
         AND p.str_name LIKE :keyword",
         [
-            KEYWORD:{name="keyword", value=keyword, cfsqltype="cf_sql_varchar"}
+            KEYWORD:{name="keyword", value=keyword, cfsqltype="cf_sql_varchar"},
+             category_id:{value:category_id,cfsqltype="cf_sql_integer"}
         ], 
         {datasource=application.datasource}
     );

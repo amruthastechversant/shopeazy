@@ -10,17 +10,67 @@
             }, 3000);
         });
 
+        
+var reviewmodalElement = $('#reviewmodal');
+var reviewclosebtn=$("#reviewclosebtn");
+function reviewbtnmodal() {
+    $("#reviewmodal").show();
+}
 $(document).ready(function () {    
     updateButtons();
     star = $('.star');
     output = $('#output');
 
-    const existingRating = parseInt($("#rating").val());//parseint convert to integer 
-    if (existingRating > 0 && existingRating <= 5) {
-        rev(existingRating);
-    }
- });
+    $('#reviewclosebtn').on('click', function() {
+        $('#reviewmodal').hide();
+    });
 
+
+    $(window).click(function(event) {
+        if ($(event.target).is("#reviewmodal")) {
+            $("#reviewmodal").fadeOut();
+        }
+    });
+   
+$('#submitReview').click(function(){
+    var rating=$("#rating").val();
+    var reviewText=$("#reviewText").val();
+
+    var userId=$('#userId').val();
+
+    var productId=$('#productId').val();
+
+    if (rating == 0) {
+            alert("Please select a rating before submitting.");
+            return;
+        }
+    $.ajax({
+        url:'/myprojects/shopeazy/users/orders/ordersActionPage.cfm',
+        method:'POST',
+        data:{
+            saveReview: true,
+            rating:rating,
+            str_review_text:reviewText,
+            int_user_id:userId,
+            int_product_id:productId
+        },
+        success: function(response) {
+                if(response.STATUS==='success'){
+                alert("Thank you! Your review has been submitted.");
+                $('#reviewmodal').fadeOut();
+                $('#reviewText').val('');
+                $('#rating').val('0');
+                output.text("Rating is: 0/5");
+                star.removeClass("rated");
+            }
+        },
+        error:function(){
+            alert("error in submitting review");
+        }
+
+    })
+})
+});
 function getContainer(type) {
     let containerId='';
     containerId = type + 'Container';
@@ -28,7 +78,6 @@ function getContainer(type) {
 }
 
 function toggleOptions(btn, type) {
-    // const container = type === 'color' ? document.getElementById('colorContainer') : document.getElementById('sizeContainer');
     let containerId= getContainer(type)
 
     const container=document.getElementById(containerId);
@@ -109,4 +158,3 @@ let star, output;
     function remove(){
         star.attr("class", "star");
     }
-

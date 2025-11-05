@@ -26,16 +26,16 @@
                             </cfif>
                         </cfif>
                         <cfif structKeyExists(session, "email")>
-                        <div class="sub-navbar">
-                            <a href="">#session.email#</a>
-                            <!-- Admin and User options -->
-                        </div>
+                            <div class="sub-navbar">
+                                <a href="">#session.email#</a>
+                                <!-- Admin and User options -->
+                            </div>
                         <cfelse>
-                        <a href="##" id="sellerloginbtn">Seller Account</a>
-                        <a href="##" id="adminloginbtn">Admin</a>
+                            <a href="##" id="sellerloginbtn">Seller Account</a>
+                            <a href="##" id="adminloginbtn">Admin</a>
                         </cfif>
                         <cfif structKeyExists(session, "isLoggedIn") and session.isLoggedIn EQ true>
-                        <a href="#application.appBasePath#logout.cfm" onclick= "return confirm('are you sure to logout?')">Sign Out</a>
+                            <a href="#application.appBasePath#logout.cfm" onclick= "return confirm('are you sure to logout?')">Sign Out</a>
                         </cfif>
                     </div>
                 </div>

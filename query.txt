@@ -24,7 +24,8 @@ CREATE TABLE tbl_seller_info (
     int_lisence_no int,
     int_product_category int,
     FOREIGN KEY (int_user_id) REFERENCES tbl_Users(int_user_id) ON DELETE CASCADE,
-    FOREIGN KEY (int_product_category) REFERENCES tbl_categories(int_category_id) ON DELETE CASCADE,
+    FOREIGN KEY (int_product_category) REFERE
+    NCES tbl_categories(int_category_id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

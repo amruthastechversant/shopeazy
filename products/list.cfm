@@ -38,7 +38,7 @@
 
           <cfloop index="i" from="1" to="#totalPages#">
             <li class="page-item <cfif i EQ url.page>active</cfif>">
-              <a class="page-link" href="?page=#i#">#i#</a>
+              <a class="page-link" href="?category_id=#url.category_id#&page=#i#">#i#</a>
             </li>
           </cfloop>
 

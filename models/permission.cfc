@@ -1,12 +1,12 @@
 component displayName="permissionComponent"{
     public any function getSellerPermission(){
-    var permissions = queryNew('');
-        var permissions = queryExecute(
+        var permissions = queryNew('');
+        permissions = queryExecute(
             "select int_permission_id,str_permission_name from tbl_seller_permission",
             [],
             {datasource=application.datasource}
              );
-    return{permissions=permissions};
+        return{permissions=permissions};
     }
 
     public any function getselectedPermissions(id){
@@ -15,7 +15,7 @@ component displayName="permissionComponent"{
             [{value=id,cfsqltype="cf_sql_integer"}],
         {datasource=application.datasource}
              );
-    return{selectedPermissions=selectedPermissions};
+        return{selectedPermissions=selectedPermissions};
     }
 
 
